@@ -906,7 +906,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
     <span class="label hero-tag">
 
 <!-- ── rotator ── -->    
- <!-- ============================================================
+<!-- ============================================================
   WORD ROTATOR COMPONENT
   Drop anywhere inside a <body>. No dependencies.
   ============================================================ -->
@@ -922,7 +922,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
   const JITTER        = 600;
 </script>
 <!-- ▲▲▲  END OF EDITABLE SECTION  ▲▲▲ -->
-</span>
+
 <style>
   .wr-rotator {
     display: flex;
@@ -965,8 +965,6 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
     font-weight: 300;
     user-select: none;
   }
-  
-
 </style>
 
 <div class="wr-rotator" id="wr-root"></div>
@@ -993,6 +991,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 
     let pending = [];
     const slotQueues = WORD_ARRAYS.map(() => []);
+    const slotBusy   = WORD_ARRAYS.map(() => false);
 
     function shuffle(arr) {
       for (var i = arr.length - 1; i > 0; i--) {
@@ -1015,18 +1014,30 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
         for (var k = 0; k < WORD_ARRAYS.length; k++) pending.push(k);
         shuffle(pending);
       }
-      return pending.pop();
+      for (var attempt = 0; attempt < pending.length; attempt++) {
+        var idx = pending[pending.length - 1 - attempt];
+        if (!slotBusy[idx]) {
+          pending.splice(pending.length - 1 - attempt, 1);
+          return idx;
+        }
+      }
+      return -1;
     }
 
     function swapSlot(idx) {
+      if (idx === -1) return;
       var slot = document.getElementById('wr-slot-' + idx);
       var old  = slot.querySelector('.wr-word');
       var next = document.createElement('span');
-      next.className = 'wr-word enter';
+      next.className   = 'wr-word enter';
       next.textContent = pickNextWord(idx);
+      slotBusy[idx] = true;
       old.className = 'wr-word exit';
       slot.appendChild(next);
-      old.addEventListener('animationend', function () { old.remove(); }, { once: true });
+      old.addEventListener('animationend', function () {
+        old.remove();
+        slotBusy[idx] = false;
+      }, { once: true });
     }
 
     function tick() {
