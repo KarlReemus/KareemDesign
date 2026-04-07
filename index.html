@@ -12,7 +12,7 @@
 
   :root {
     --cream: #FFFCF8  ;
-    --navy:   #114188;
+    --navy:   #00317c;
     --warm:  #C8B89A;
     --accent:#c73f15;
     --mid:   #888078;
@@ -54,7 +54,7 @@
     font-weight: 500;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--mid);
+    color: var(--navy);
   }
 
   /* ─── STICKY HEADER ─────────────────────────────── */
@@ -83,7 +83,7 @@
   }
 
   /* Logo / wordmark left */
-  .logo {
+  /* .logo {
     font-family: 'Avenir Next', serif;
     font-size: 1.2rem;
     color: var(--ink);
@@ -91,7 +91,7 @@
     letter-spacing: -.01em;
     transition: opacity .2s;
     white-space: nowrap;
-  }
+  } */
   .logo:hover { opacity: .6; }
 
   /* Interactive status pill — top left */
@@ -229,7 +229,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: var(--ink);
+    background: var(--navy);
     color: var(--cream);
     border: none;
     border-radius: 999px;
@@ -735,7 +735,7 @@
      STICKY HEADER
 ════════════════════════════════════════ -->
 <header id="site-header">
- 
+ <div class="header-inner">
  <style>
 
   .shuffler-scene {
@@ -772,7 +772,7 @@
 
     
 
-    background: #fffcf800;
+    background: #FFFCF8;
 
     display: flex;
 
@@ -813,6 +813,7 @@
 <script>
 
 const IMAGES = [
+
 "logos/acdc.png",
 "logos/amzn.png",
 "logos/bking.jpg", 
@@ -828,7 +829,6 @@ const IMAGES = [
 "logos/hndrx.png",
 "logos/hrdrkcf.png",
 "logos/hub.jpg",
-
 "logos/kbok.jpg",
 "logos/kbook.jpg",
 "logos/kdidas.jpg",
@@ -893,7 +893,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 });
 
 </script>
-
+</div>
     <!-- Nav -->
     <nav>
       <a href="#about">About</a>
@@ -913,10 +913,143 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
   <section id="home">
     <div class="hero-circle"></div>
 
-    <span class="label hero-tag">Product Designer · Chicago, IL</span>
+    <span class="label hero-tag">
+
+<!-- ── rotator ── -->    
+ <!-- ============================================================
+  WORD ROTATOR COMPONENT
+  Drop anywhere inside a <body>. No dependencies.
+  ============================================================ -->
+
+<!-- ▼▼▼  EDIT YOUR WORDS HERE  ▼▼▼ -->
+<script>
+  const WORD_ARRAYS = [
+    /* Slot 1 */ ["Product",    "Principal",   "Senior",    "Lead",    "Staff", "Digital",  ],
+    /* Slot 2 */ ["Experience",   "Product",  "Systems",   "Interaction"   ],
+    /* Slot 3 */ ["Designer",    "Strategist",   "Lead",   "Researcher", "Architect", "Visionary",   ]
+  ];
+  const BASE_INTERVAL = 1400;
+  const JITTER        = 600;
+</script>
+<!-- ▲▲▲  END OF EDITABLE SECTION  ▲▲▲ -->
+</span>
+<style>
+  .wr-rotator {
+    display: flex;
+    gap: 2rem;
+    justify-content: Left;
+    align-items: center;
+    padding: 3rem 1rem;
+    font-family: sans-serif;
+  }
+  .wr-slot {
+    position: relative;
+    overflow: hidden;
+    height: 56px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wr-word {
+    position: absolute;
+    font-size: 16pt;
+    font-weight: 500;
+    color: #111;
+    white-space: nowrap;
+  }
+  .wr-word.idle  { transform: translateY(0); opacity: 1; }
+  .wr-word.exit  { animation: wr-slideUp 0.35s ease-in  forwards; }
+  .wr-word.enter { animation: wr-slideIn 0.35s ease-out forwards; }
+  @keyframes wr-slideUp {
+    0%   { transform: translateY(0);     opacity: 1; }
+    100% { transform: translateY(-110%); opacity: 0; }
+  }
+  @keyframes wr-slideIn {
+    0%   { transform: translateY(110%);  opacity: 0; }
+    100% { transform: translateY(0);     opacity: 1; }
+  }
+  .wr-divider {
+    font-size: 2rem;
+    color: #ccc;
+    font-weight: 300;
+    user-select: none;
+  }
+  
+
+</style>
+
+<div class="wr-rotator" id="wr-root"></div>
+
+<script>
+  (function () {
+    const root = document.getElementById('wr-root');
+    WORD_ARRAYS.forEach(function (pool, i) {
+      if (i > 0) {
+        const div = document.createElement('span');
+        div.className = 'wr-divider';
+        div.textContent = '·';
+        root.appendChild(div);
+      }
+      const slot = document.createElement('div');
+      slot.className = 'wr-slot';
+      slot.id = 'wr-slot-' + i;
+      const word = document.createElement('span');
+      word.className = 'wr-word idle';
+      word.textContent = pool[0];
+      slot.appendChild(word);
+      root.appendChild(slot);
+    });
+
+    let pending = [];
+    const slotQueues = WORD_ARRAYS.map(() => []);
+
+    function shuffle(arr) {
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+      return arr;
+    }
+
+    function pickNextWord(idx) {
+      if (!slotQueues[idx].length) {
+        slotQueues[idx] = shuffle(WORD_ARRAYS[idx].slice());
+      }
+      return slotQueues[idx].pop();
+    }
+
+    function pickNextSlot() {
+      if (!pending.length) {
+        pending = [];
+        for (var k = 0; k < WORD_ARRAYS.length; k++) pending.push(k);
+        shuffle(pending);
+      }
+      return pending.pop();
+    }
+
+    function swapSlot(idx) {
+      var slot = document.getElementById('wr-slot-' + idx);
+      var old  = slot.querySelector('.wr-word');
+      var next = document.createElement('span');
+      next.className = 'wr-word enter';
+      next.textContent = pickNextWord(idx);
+      old.className = 'wr-word exit';
+      slot.appendChild(next);
+      old.addEventListener('animationend', function () { old.remove(); }, { once: true });
+    }
+
+    function tick() {
+      swapSlot(pickNextSlot());
+      setTimeout(tick, BASE_INTERVAL + Math.random() * JITTER);
+    }
+
+    setTimeout(tick, BASE_INTERVAL);
+  })();
+</script>
 
     <h1 class="hero-name serif">
-      This is what <em>poo</em> looks like.
+      Kareem Hindi <em>Design</em> 
     </h1>
 
     <p class="hero-statement">
@@ -1012,37 +1145,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       <!-- Case Study 3 -->
       <article class="cs-thumb" data-case="2">
         <div class="cs-thumb-media" onclick="openCaseStudy(2)">
-          <svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
-            <rect width="600" height="450" fill="#0D1117"/>
-            <!-- header bar -->
-            <rect x="0" y="0" width="600" height="52" fill="#161B22"/>
-            <circle cx="30" cy="26" r="8" fill="#FF5F57"/>
-            <circle cx="52" cy="26" r="8" fill="#FEBC2E"/>
-            <circle cx="74" cy="26" r="8" fill="#28C840"/>
-            <rect x="180" y="14" width="240" height="24" rx="6" fill="#21262D"/>
-            <!-- sidebar -->
-            <rect x="0" y="52" width="56" height="398" fill="#161B22"/>
-            <rect x="16" y="80" width="24" height="24" rx="4" fill="rgba(255,255,255,.25)"/>
-            <rect x="16" y="118" width="24" height="24" rx="4" fill="rgba(255,255,255,.1)"/>
-            <rect x="16" y="156" width="24" height="24" rx="4" fill="rgba(255,255,255,.1)"/>
-            <rect x="16" y="194" width="24" height="24" rx="4" fill="rgba(255,255,255,.1)"/>
-            <!-- main canvas -->
-            <rect x="80" y="80" width="200" height="120" rx="8" fill="#21262D"/>
-            <rect x="100" y="96" width="120" height="10" rx="3" fill="rgba(255,255,255,.5)"/>
-            <rect x="100" y="114" width="80" height="10" rx="3" fill="rgba(255,255,255,.2)"/>
-            <rect x="100" y="148" width="60" height="28" rx="6" fill="#238636"/>
-            <rect x="300" y="80" width="260" height="80" rx="8" fill="#21262D"/>
-            <rect x="320" y="96" width="160" height="8" rx="3" fill="rgba(255,255,255,.4)"/>
-            <rect x="320" y="112" width="120" height="8" rx="3" fill="rgba(255,255,255,.2)"/>
-            <rect x="320" y="128" width="100" height="8" rx="3" fill="rgba(255,255,255,.15)"/>
-            <rect x="80" y="220" width="480" height="200" rx="8" fill="#21262D"/>
-            <rect x="100" y="240" width="300" height="12" rx="3" fill="rgba(255,255,255,.35)"/>
-            <rect x="100" y="262" width="220" height="10" rx="3" fill="rgba(255,255,255,.2)"/>
-            <rect x="100" y="284" width="260" height="10" rx="3" fill="rgba(255,255,255,.15)"/>
-            <rect x="100" y="306" width="180" height="10" rx="3" fill="rgba(255,255,255,.1)"/>
-            <rect x="100" y="338" width="440" height="1" fill="rgba(255,255,255,.08)"/>
-            <rect x="100" y="358" width="140" height="28" rx="6" fill="#1F6FEB"/>
-          </svg>
+         
         </div>
         <div class="cs-thumb-info">
           <span class="cs-thumb-meta"><span class="cs-category-dot"></span> Developer Tools · Web</span>
