@@ -12,8 +12,8 @@
 
   :root {
     --cream: #FFFCF8  ;
-    --navy:   #00317c;
     --ink:   #111010;
+    --navy:   #00317c;
     --warm:  #C8B89A;
     --accent:#c73f15;
     --mid:   #888078;
@@ -66,7 +66,7 @@
     display: flex;
     align-items: center;
     padding: 0 clamp(24px, 5vw, 64px);
-    z-index: 100;
+    z-index: 50;
     transition: height .4s var(--ease-out), background .4s, backdrop-filter .4s, box-shadow .4s;
   }
   header.scrolled {
@@ -74,7 +74,15 @@
     background: rgba(247,244,239,.88);
     backdrop-filter: blur(14px);
     box-shadow: 0 1px 0 rgba(0,0,0,.07);
+}
+
+@media (max-width: 600px) {
+  header.scrolled {
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
   }
+}
 
   .header-inner {
     width: 100%;
@@ -86,7 +94,7 @@
   /*rotator*/
 .wr-rotator {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     justify-content: flex-start;
     align-items: center;
     padding: 3rem 1rem;
@@ -139,7 +147,35 @@
   } */
   .logo:hover { opacity: .6; }
 
-  
+  /* Interactive status pill — top left */
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 999px;
+    padding: 6px 14px 6px 10px;
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    cursor: default;
+    transition: background .2s, transform .2s var(--ease);
+    flex-shrink: 0;
+  }
+  .status-pill:hover { background: var(--accent); transform: scale(1.04); }
+  .status-dot {
+    width: 7px; height: 7px;
+    background: #5BE55B;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  } 
+    
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: .4; }
+  }
 
   /* Nav links */
   nav { display: flex; gap: 36px; }
@@ -415,7 +451,7 @@
 
   /* ─── ABOUT ──────────────────────────────────────── */
   #about {
-    background: var(--navy);
+    background: var(--ink);
     color: var(--cream);
   }
 
@@ -735,14 +771,6 @@
   @media (max-width: 600px) {
   footer { flex-direction: column; gap: 8px; text-align: center; }
 
-  .hero-circle {
-    opacity: 0.12;
-    z-index: 0;
-    right: -80px;
-    top: 40%;
-    pointer-events: none;
-  }
-
   .shuffler-scene {
     margin: 0 auto;
     display: block;
@@ -752,6 +780,14 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
+  }
+
+  .hero-circle {
+    opacity: 0.12;
+    z-index: 0;
+    right: -80px;
+    top: 40%;
+    pointer-events: none;
   }
 }
 
@@ -772,7 +808,7 @@
   width: 36px;
   height: 36px;
   background: none;
-  border: 1px;
+  border: none;
   cursor: pointer;
   padding: 4px;
   z-index: 200;
@@ -781,8 +817,8 @@
   display: block;
   width: 100%;
   height: 1.5px;
-  background: var(--navy);
-  border-radius: 6px;
+  background: var(--ink);
+  border-radius: 2px;
   transform-origin: center;
   transition: transform .35s var(--ease-out), opacity .25s, width .3s var(--ease-out);
 }
@@ -808,7 +844,7 @@
     transform: translateY(-100%);
     opacity: 0;
     transition: transform .45s var(--ease-out), opacity .35s;
-    z-index: 150;
+    z-index: 250;
     pointer-events: none;
   }
 
@@ -822,7 +858,7 @@
     font-family: 'DM Serif Display', serif;
     font-size: 2.6rem;
     letter-spacing: -.02em;
-    color: var(--ink);
+    color: var(--navy);
   }
 
   #main-nav a::after { display: none; }
@@ -837,9 +873,6 @@
     pointer-events: none;
   }
 }
-
-</style>
-
 </style>
 </head>
 <body>
@@ -852,26 +885,40 @@
  <style>
 
   .shuffler-scene {
+
     width: 275px;
+
     height: 52px;
+
     cursor: pointer;
+
   }
 
   .shuffler-card {
+
     width: 100%;
+
     height: 100%;
+
     position: relative;
+
   }
 
   .shuffler-face {
+
     position: absolute;
+
     width: 100%;
+
     height: 100%;
+
+    
+
     overflow: hidden;
 
     
 
-    background: #FFFCF800;
+    background: #FFFCF8;
 
     display: flex;
 
@@ -1023,228 +1070,98 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
     <span class="label hero-tag"></span>
 
 
- 
-<!-- ── rotator ── -->    
-<!-- ============================================================
+ <!-- ============================================================
   WORD ROTATOR COMPONENT
   Drop anywhere inside a <body>. No dependencies.
   ============================================================ -->
-
-<!-- ▼▼▼  EDIT YOUR WORDS HERE  ▼▼▼ -->
 <script>
   const WORD_ARRAYS = [
-    /* Slot 1 */ ["Product",    "Principal",   "Senior",    "Lead",    "Staff", "Digital"  ],
-    /* Slot 2 */ ["Experience", "Product",     "Systems",   "Interaction"                  ],
-    /* Slot 3 */ ["Designer",   "Strategist",  "Lead",      "Researcher", "Architect", "Visionary" ]
+    /* Slot 1 */ ["Product",    "Principal",   "Senior",    "Lead",    "Staff", "Digital",  ],
+    /* Slot 2 */ ["Experience",   "Product",  "Systems",   "Interaction"   ],
+    /* Slot 3 */ ["Designer",    "Strategist",   "Lead",   "Researcher", "Architect", "Visionary",   ]
   ];
   const BASE_INTERVAL = 1400;
   const JITTER        = 600;
 </script>
-<!-- ▲▲▲  END OF EDITABLE SECTION  ▲▲▲ -->
 
-<style>
-  .wr-rotator {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: left;
-    padding: 3rem 1rem;
-    font-family: sans-serif;
-    gap: 1rem;
-  }
-  .wr-slot {
-    position: relative;
-    overflow: hidden;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .wr-word {
-    position: absolute;
-    font-weight: 500;
-    color: #111;
-    white-space: nowrap;
-  }
-  .wr-word.idle { transform: translateY(0); opacity: 1; }
-  @keyframes wr-slideUp {
-    0%   { transform: translateY(0);     opacity: 1; }
-    100% { transform: translateY(-110%); opacity: 0; }
-  }
-  @keyframes wr-slideIn {
-    0%   { transform: translateY(110%);  opacity: 0; }
-    100% { transform: translateY(0);     opacity: 1; }
-  }
-  .wr-divider {
-    color: #ccc;
-    font-weight: 300;
-    user-select: none;
-    flex-shrink: 0;
-  }
-</style>
+</span>
+
 
 <div class="wr-rotator" id="wr-root"></div>
 
 <script>
-(function () {
-  const FONT_SIZE_DESKTOP = '16pt';
-  const FONT_SIZE_MOBILE  = '10pt';
-  const BREAKPOINT        = 600;
-
-  const root = document.getElementById('wr-root');
-
-  function isMobile() {
-    return window.innerWidth <= BREAKPOINT;
-  }
-
-  function getFontSize() {
-    return isMobile() ? FONT_SIZE_MOBILE : FONT_SIZE_DESKTOP;
-  }
-
-  function getGap() {
-    return isMobile() ? '0.3rem' : '1rem';
-  }
-
-  function getDividerSize() {
-    return isMobile() ? '1rem' : '2rem';
-  }
-
-  function getSlotHeight() {
-    return isMobile() ? '36px' : '56px';
-  }
-
-  // measure longest word width for a given font size
-  const probe = document.createElement('span');
-  probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font-weight:500;font-family:sans-serif;';
-  document.body.appendChild(probe);
-
-  function measureSlotWidth(pool, fontSize) {
-    probe.style.fontSize = fontSize;
-    var maxWidth = 0;
-    pool.forEach(function(w) {
-      probe.textContent = w;
-      maxWidth = Math.max(maxWidth, probe.offsetWidth);
-    });
-    return maxWidth + 8;
-  }
-
-  // build DOM once
-  WORD_ARRAYS.forEach(function (pool, i) {
-    if (i > 0) {
-      const div = document.createElement('span');
-      div.className = 'wr-divider';
-      div.id = 'wr-divider-' + i;
-      div.textContent = '·';
-      root.appendChild(div);
-    }
-    const slot = document.createElement('div');
-    slot.className = 'wr-slot';
-    slot.id = 'wr-slot-' + i;
-    const word = document.createElement('span');
-    word.className = 'wr-word idle';
-    word.textContent = pool[0];
-    slot.appendChild(word);
-    root.appendChild(slot);
-  });
-
-  document.body.removeChild(probe);
-
-  // apply sizing based on current screen size
-  function applysizing() {
-    var fontSize   = getFontSize();
-    var gap        = getGap();
-    var divSize    = getDividerSize();
-    var slotHeight = getSlotHeight();
-
-    root.style.gap = gap;
-    root.style.padding = isMobile() ? '1.5rem 0.5rem' : '3rem 1rem';
-
-    WORD_ARRAYS.forEach(function(pool, i) {
-      var slot = document.getElementById('wr-slot-' + i);
-      var w    = measureSlotWidth(pool, fontSize);
-      slot.style.width  = w + 'px';
-      slot.style.height = slotHeight;
-
-      // update font size on current word
-      var word = slot.querySelector('.wr-word');
-      if (word) word.style.fontSize = fontSize;
-
+  (function () {
+    const root = document.getElementById('wr-root');
+    WORD_ARRAYS.forEach(function (pool, i) {
       if (i > 0) {
-        var div = document.getElementById('wr-divider-' + i);
-        if (div) div.style.fontSize = divSize;
+        const div = document.createElement('span');
+        div.className = 'wr-divider';
+        div.textContent = '·';
+        root.appendChild(div);
       }
+      const slot = document.createElement('div');
+      slot.className = 'wr-slot';
+      slot.id = 'wr-slot-' + i;
+      const word = document.createElement('span');
+      word.className = 'wr-word idle';
+      word.textContent = pool[0];
+      slot.appendChild(word);
+      root.appendChild(slot);
     });
-  }
 
-  applysizing();
-  window.addEventListener('resize', applysizing);
+    let pending = [];
+    const slotQueues = WORD_ARRAYS.map(() => []);
+    const slotBusy = WORD_ARRAYS.map(() => false);
 
-  // rotation logic
-  let pending = [];
-  const slotQueues = WORD_ARRAYS.map(() => []);
-  const slotBusy   = WORD_ARRAYS.map(() => false);
-
-  function shuffle(arr) {
-    for (var i = arr.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
-    }
-    return arr;
-  }
-
-  function pickNextWord(idx) {
-    if (!slotQueues[idx].length) slotQueues[idx] = shuffle(WORD_ARRAYS[idx].slice());
-    return slotQueues[idx].pop();
-  }
-
-  function pickNextSlot() {
-    if (!pending.length) {
-      pending = [];
-      for (var k = 0; k < WORD_ARRAYS.length; k++) pending.push(k);
-      shuffle(pending);
-    }
-    for (var a = 0; a < pending.length; a++) {
-      var idx = pending[pending.length - 1 - a];
-      if (!slotBusy[idx]) {
-        pending.splice(pending.length - 1 - a, 1);
-        return idx;
+    function shuffle(arr) {
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
       }
+      return arr;
     }
-    return -1;
+
+    function pickNextWord(idx) {
+      if (!slotQueues[idx].length) {
+        slotQueues[idx] = shuffle(WORD_ARRAYS[idx].slice());
+      }
+      return slotQueues[idx].pop();
+    }
+
+function pickNextSlot() {
+  if (!pending.length) {
+    pending = [];
+    for (var k = 0; k < WORD_ARRAYS.length; k++) pending.push(k);
+    shuffle(pending);
   }
+  for (var attempt = 0; attempt < pending.length; attempt++) {
+    var idx = pending[pending.length - 1 - attempt];
+    if (!slotBusy[idx]) {
+      pending.splice(pending.length - 1 - attempt, 1);
+      return idx;
+    }
+  }
+  return -1;
+}
 
-  function swapSlot(idx) {
-    if (idx === -1) return;
-    var slot = document.getElementById('wr-slot-' + idx);
-    var old  = slot.querySelector('.wr-word');
-    slotBusy[idx] = true;
-
-    old.style.animation = 'wr-slideUp 0.35s ease-in forwards';
-
-    old.addEventListener('animationend', function () {
-      old.remove();
+    function swapSlot(idx) {
+      var slot = document.getElementById('wr-slot-' + idx);
+      var old  = slot.querySelector('.wr-word');
       var next = document.createElement('span');
-      next.className   = 'wr-word';
+      next.className = 'wr-word enter';
       next.textContent = pickNextWord(idx);
-      next.style.fontSize  = getFontSize();
-      next.style.animation = 'wr-slideIn 0.35s ease-out forwards';
+      old.className = 'wr-word exit';
       slot.appendChild(next);
-      next.addEventListener('animationend', function () {
-        next.style.animation = '';
-        next.classList.add('idle');
-        slotBusy[idx] = false;
-      }, { once: true });
-    }, { once: true });
-  }
+      old.addEventListener('animationend', function () { old.remove(); }, { once: true });
+    }
 
-  function tick() {
-    swapSlot(pickNextSlot());
-    setTimeout(tick, BASE_INTERVAL + Math.random() * JITTER);
-  }
+    function tick() {
+      swapSlot(pickNextSlot());
+      setTimeout(tick, BASE_INTERVAL + Math.random() * JITTER);
+    }
 
-  setTimeout(tick, BASE_INTERVAL);
-})();
+    setTimeout(tick, BASE_INTERVAL);
+  })();
 </script>
 
 
@@ -1385,7 +1302,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       <h2 class="serif">Let's make something <em>worth making.</em></h2>
       <p>I'm currently available for full-time roles and select freelance collaborations. If you have a problem worth solving, I'd love to hear about it.</p>
       <div class="contact-links">
-        <a href="/cdn-cgi/l/email-protection#741c1118181b341e1b0610151a1118181d075a171b" class="contact-link primary">✉ <span class="__cf_email__" data-cfemail="a4ccc1c8c8cbe4cecbd6c0c5cac1c8c8cdd78ac7cb">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#335b565f5f5c73595c4157525d565f5f5a401d505c" class="contact-link primary">✉ <span class="__cf_email__" data-cfemail="b1d9d4dddddef1dbdec3d5d0dfd4ddddd8c29fd2de">[email&#160;protected]</span></a>
         <a href="#" class="contact-link secondary">LinkedIn ↗</a>
         <a href="#" class="contact-link secondary">Read.cv ↗</a>
       </div>
