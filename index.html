@@ -13,6 +13,7 @@
   :root {
     --cream: #FFFCF8  ;
     --navy:   #00317c;
+    --ink:   #111010;
     --warm:  #C8B89A;
     --accent:#c73f15;
     --mid:   #888078;
@@ -82,6 +83,50 @@
     justify-content: space-between;
   }
 
+  /*rotator*/
+.wr-rotator {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3rem 1rem;
+    font-family: Avenir next, sans-serif;
+  }
+  .wr-slot {
+    position: relative;
+    overflow: hidden;
+    height: 56px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wr-word {
+    position: absolute;
+    font-size: 16pt;
+    font-weight: 500;
+    color: #111;
+    white-space: nowrap;
+  }
+  .wr-word.idle  { transform: translateY(0); opacity: 1; }
+  .wr-word.exit  { animation: wr-slideUp 0.35s ease-in  forwards; }
+  .wr-word.enter { animation: wr-slideIn 0.35s ease-out forwards; }
+  @keyframes wr-slideUp {
+    0%   { transform: translateY(0);     opacity: 1; }
+    100% { transform: translateY(-110%); opacity: 0; }
+  }
+  @keyframes wr-slideIn {
+    0%   { transform: translateY(110%);  opacity: 0; }
+    100% { transform: translateY(0);     opacity: 1; }
+  }
+  .wr-divider {
+    font-size: 2rem;
+    color: #ccc;
+    font-weight: 300;
+    user-select: none;
+  }
+
+
   /* Logo / wordmark left */
   /* .logo {
     font-family: 'Avenir Next', serif;
@@ -94,35 +139,7 @@
   } */
   .logo:hover { opacity: .6; }
 
-  /* Interactive status pill — top left 
-  .status-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--ink);
-    color: var(--cream);
-    border-radius: 999px;
-    padding: 6px 14px 6px 10px;
-    font-size: .72rem;
-    font-weight: 500;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    cursor: default;
-    transition: background .2s, transform .2s var(--ease);
-    flex-shrink: 0;
-  }*/
-  .status-pill:hover { background: var(--accent); transform: scale(1.04); }
-  .status-dot {
-    width: 7px; height: 7px;
-    background: #5BE55B;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  } 
-    
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50%      { opacity: .4; }
-  }
+  
 
   /* Nav links */
   nav { display: flex; gap: 36px; }
@@ -157,7 +174,18 @@
     overflow: hidden;
   }
 
-  
+  /* Decorative grid lines 
+  #home::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(0,0,0,.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,.04) 1px, transparent 1px);
+    background-size: calc(100% / 12) 80px;
+    pointer-events: none;
+  }
+*/
   /* Accent circle */
   .hero-circle {
     position: absolute;
@@ -496,7 +524,7 @@
     cursor: pointer;
   }
   .contact-link.primary {
-    background: var(--navy);
+    background: var(--ink);
     color: var(--cream);
   }
   .contact-link.primary:hover { background: var(--accent); transform: translateY(-2px); }
@@ -705,9 +733,27 @@
   }
 
   @media (max-width: 600px) {
-    nav { display: none; }
-    footer { flex-direction: column; gap: 8px; text-align: center; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+
+  .hero-circle {
+    opacity: 0.12;
+    z-index: 0;
+    right: -80px;
+    top: 40%;
+    pointer-events: none;
   }
+
+  .shuffler-scene {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .header-inner {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
 
   /* header shrink in case study */
   header.cs-mode {
@@ -716,6 +762,81 @@
     backdrop-filter: blur(14px);
     box-shadow: 0 1px 0 rgba(0,0,0,.07);
   }
+
+/* ─── Hamburger Button ───────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+}
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: var(--navy);
+  border-radius: 6px;
+  transform-origin: center;
+  transition: transform .35s var(--ease-out), opacity .25s, width .3s var(--ease-out);
+}
+
+/* Animated X state */
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ─── Mobile Nav Drawer ──────────────────────── */
+@media (max-width: 600px) {
+  .hamburger { display: flex; position: fixed; top: 14px; right: 20px; z-index: 300; }
+
+  #main-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform .45s var(--ease-out), opacity .35s;
+    z-index: 150;
+    pointer-events: none;
+  }
+
+  #main-nav.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  #main-nav a {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.6rem;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+
+  #main-nav a::after { display: none; }
+
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+
+  .hero-circle {
+    opacity: 0.12;
+    z-index: 0;
+    right: -80px;
+    top: 40%;
+    pointer-events: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -728,40 +849,26 @@
  <style>
 
   .shuffler-scene {
-
     width: 275px;
-
     height: 52px;
-
     cursor: pointer;
-
   }
 
   .shuffler-card {
-
     width: 100%;
-
     height: 100%;
-
     position: relative;
-
   }
 
   .shuffler-face {
-
     position: absolute;
-
     width: 100%;
-
     height: 100%;
-
-    
-
     overflow: hidden;
 
     
 
-    background: #fffcf800;
+    background: #FFFCF800;
 
     display: flex;
 
@@ -785,6 +892,9 @@
 
 </style>
 
+
+
+
 <div class="shuffler-scene" id="shuffler-scene">
 
   <div class="shuffler-card">
@@ -798,6 +908,7 @@
   </div>
 
 </div>
+
 
 <script>
 
@@ -840,7 +951,6 @@ const IMAGES = [
 "logos/Sprme.png",
 "logos/strbkcs.png",
 "logos/tbll.png",
-"logos/vana.jpg",
 
 ];
 
@@ -883,13 +993,17 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 });
 
 </script>
-</div>
+
     <!-- Nav -->
-    <nav>
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
-    </nav>
+   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+<nav id="main-nav">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#work" onclick="closeMenu()">Work</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</nav>
   </div>
 </header>
 
@@ -902,10 +1016,104 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
   <!-- ── HERO ── -->
   <section id="home">
     <div class="hero-circle"></div>
-
+   <!-- <span class="label hero-tag">Product Designer · Chicago, IL</span> -->
     <span class="label hero-tag"></span>
 
-  
+
+ <!-- ============================================================
+  WORD ROTATOR COMPONENT
+  Drop anywhere inside a <body>. No dependencies.
+  ============================================================ -->
+<script>
+  const WORD_ARRAYS = [
+    /* Slot 1 */ ["Product",    "Principal",   "Senior",    "Lead",    "Staff", "Digital",  ],
+    /* Slot 2 */ ["Experience",   "Product",  "Systems",   "Interaction"   ],
+    /* Slot 3 */ ["Designer",    "Strategist",   "Lead",   "Researcher", "Architect", "Visionary",   ]
+  ];
+  const BASE_INTERVAL = 1400;
+  const JITTER        = 600;
+</script>
+
+</span>
+
+
+<div class="wr-rotator" id="wr-root"></div>
+
+<script>
+  (function () {
+    const root = document.getElementById('wr-root');
+    WORD_ARRAYS.forEach(function (pool, i) {
+      if (i > 0) {
+        const div = document.createElement('span');
+        div.className = 'wr-divider';
+        div.textContent = '·';
+        root.appendChild(div);
+      }
+      const slot = document.createElement('div');
+      slot.className = 'wr-slot';
+      slot.id = 'wr-slot-' + i;
+      const word = document.createElement('span');
+      word.className = 'wr-word idle';
+      word.textContent = pool[0];
+      slot.appendChild(word);
+      root.appendChild(slot);
+    });
+
+    let pending = [];
+    const slotQueues = WORD_ARRAYS.map(() => []);
+    const slotBusy = WORD_ARRAYS.map(() => false);
+
+    function shuffle(arr) {
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+      return arr;
+    }
+
+    function pickNextWord(idx) {
+      if (!slotQueues[idx].length) {
+        slotQueues[idx] = shuffle(WORD_ARRAYS[idx].slice());
+      }
+      return slotQueues[idx].pop();
+    }
+
+function pickNextSlot() {
+  if (!pending.length) {
+    pending = [];
+    for (var k = 0; k < WORD_ARRAYS.length; k++) pending.push(k);
+    shuffle(pending);
+  }
+  for (var attempt = 0; attempt < pending.length; attempt++) {
+    var idx = pending[pending.length - 1 - attempt];
+    if (!slotBusy[idx]) {
+      pending.splice(pending.length - 1 - attempt, 1);
+      return idx;
+    }
+  }
+  return -1;
+}
+
+    function swapSlot(idx) {
+      var slot = document.getElementById('wr-slot-' + idx);
+      var old  = slot.querySelector('.wr-word');
+      var next = document.createElement('span');
+      next.className = 'wr-word enter';
+      next.textContent = pickNextWord(idx);
+      old.className = 'wr-word exit';
+      slot.appendChild(next);
+      old.addEventListener('animationend', function () { old.remove(); }, { once: true });
+    }
+
+    function tick() {
+      swapSlot(pickNextSlot());
+      setTimeout(tick, BASE_INTERVAL + Math.random() * JITTER);
+    }
+
+    setTimeout(tick, BASE_INTERVAL);
+  })();
+</script>
+
 
     <h1 class="hero-name serif">
       Kareem Hindi <em>Design</em> 
@@ -940,25 +1148,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       <!-- Case Study 1 -->
       <article class="cs-thumb" data-case="0">
         <div class="cs-thumb-media" onclick="openCaseStudy(0)">
-          <!-- <svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
-            <rect width="600" height="450" fill="#1A1A2E"/>
-            <rect x="40" y="40" width="520" height="60" rx="12" fill="#16213E" opacity=".8"/>
-            <rect x="60" y="58" width="120" height="24" rx="6" fill="#E94560" opacity=".7"/>
-            <rect x="200" y="58" width="80" height="24" rx="6" fill="rgba(255,255,255,.15)"/>
-            <rect x="40" y="130" width="250" height="140" rx="12" fill="#16213E"/>
-            <rect x="60" y="150" width="180" height="16" rx="4" fill="rgba(255,255,255,.6)"/>
-            <rect x="60" y="178" width="120" height="12" rx="4" fill="rgba(255,255,255,.3)"/>
-            <circle cx="160" cy="236" r="28" fill="#E94560" opacity=".8"/>
-            <rect x="310" y="130" width="250" height="65" rx="12" fill="#16213E"/>
-            <rect x="330" y="148" width="140" height="12" rx="4" fill="rgba(255,255,255,.5)"/>
-            <rect x="330" y="168" width="100" height="12" rx="4" fill="rgba(255,255,255,.25)"/>
-            <rect x="310" y="210" width="115" height="60" rx="12" fill="#E94560" opacity=".2"/>
-            <rect x="445" y="210" width="115" height="60" rx="12" fill="#16213E"/>
-            <rect x="40" y="290" width="520" height="120" rx="12" fill="#16213E"/>
-            <rect x="60" y="310" width="280" height="14" rx="4" fill="rgba(255,255,255,.4)"/>
-            <rect x="60" y="334" width="200" height="14" rx="4" fill="rgba(255,255,255,.2)"/>
-            <rect x="60" y="358" width="240" height="14" rx="4" fill="rgba(255,255,255,.15)"/>
-          </svg> -->
+          
         </div>
         <div class="cs-thumb-info">
           <span class="cs-thumb-meta"><span class="cs-category-dot"></span> SaaS · Dashboard</span>
@@ -1062,7 +1252,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       <h2 class="serif">Let's make something <em>worth making.</em></h2>
       <p>I'm currently available for full-time roles and select freelance collaborations. If you have a problem worth solving, I'd love to hear about it.</p>
       <div class="contact-links">
-        <a href="mailto:hello@jordanellis.co" class="contact-link primary">✉ hello@jordanellis.co</a>
+        <a href="/cdn-cgi/l/email-protection#741c1118181b341e1b0610151a1118181d075a171b" class="contact-link primary">✉ <span class="__cf_email__" data-cfemail="a4ccc1c8c8cbe4cecbd6c0c5cac1c8c8cdd78ac7cb">[email&#160;protected]</span></a>
         <a href="#" class="contact-link secondary">LinkedIn ↗</a>
         <a href="#" class="contact-link secondary">Read.cv ↗</a>
       </div>
@@ -1120,7 +1310,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       <p>We ran 22 contextual inquiry sessions across three customer segments, mapping every touchpoint from login to export. The patterns were clear: too many paths to the same destination, and a complete absence of progressive disclosure.</p>
     </div>
     <div class="cs-split-media">
-     
+      
     </div>
   </div>
 
@@ -1132,7 +1322,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       <p>Fourteen iterations. Three rounds of usability testing. One design system with 240 components.</p>
     </div>
     <div class="cs-split-media">
-    
+     
     </div>
   </div>
 
@@ -1161,7 +1351,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       
     </div>
     <div class="grid-img">
-     
+      
     </div>
   </div>
 
@@ -1173,7 +1363,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 </div><!-- /case-study-page -->
 
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ─── Case Study Data ──────────────────────── */
 const cases = [
   {
@@ -1251,6 +1441,23 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 document.querySelectorAll('.cs-thumb').forEach(el => observer.observe(el));
+
+/* ─── Hamburger Menu ───────────────────────── */
+function toggleMenu() {
+  const nav = document.getElementById('main-nav');
+  const btn = document.getElementById('hamburger');
+  const isOpen = nav.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+function closeMenu() {
+  document.getElementById('main-nav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded', false);
+  document.body.style.overflow = '';
+}
 </script>
 </body>
 </html>
