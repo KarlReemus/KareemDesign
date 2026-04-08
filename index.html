@@ -96,7 +96,7 @@
     display: flex;
     gap: 2rem;
     justify-content: flex-start;
-    align-items: center;
+    align-items: left;
     padding: 3rem 1rem;
     font-family: Avenir next, sans-serif;
   }
@@ -104,7 +104,7 @@
     position: relative;
     overflow: hidden;
     height: 56px;
-    min-width: 200px;
+    min-width: 110px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,12 +127,7 @@
     0%   { transform: translateY(110%);  opacity: 0; }
     100% { transform: translateY(0);     opacity: 1; }
   }
-  .wr-divider {
-    font-size: 2rem;
-    color: #ccc;
-    font-weight: 300;
-    user-select: none;
-  }
+ 
 
 
   /* Logo / wordmark left */
@@ -147,35 +142,7 @@
   } */
   .logo:hover { opacity: .6; }
 
-  /* Interactive status pill — top left */
-  .status-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--ink);
-    color: var(--cream);
-    border-radius: 999px;
-    padding: 6px 14px 6px 10px;
-    font-size: .72rem;
-    font-weight: 500;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    cursor: default;
-    transition: background .2s, transform .2s var(--ease);
-    flex-shrink: 0;
-  }
-  .status-pill:hover { background: var(--accent); transform: scale(1.04); }
-  .status-dot {
-    width: 7px; height: 7px;
-    background: #5BE55B;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  } 
-    
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50%      { opacity: .4; }
-  }
+  
 
   /* Nav links */
   nav { display: flex; gap: 36px; }
@@ -1076,7 +1043,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
   Drop anywhere inside a <body>. No dependencies.
   ============================================================ -->
 
-<!-- ▼▼▼  EDIT YOUR WORDS HERE  ▼▼▼ -->
+
 <script>
   const WORD_ARRAYS = [
     /* Slot 1 */ ["Product",    "Principal",   "Senior",    "Lead",    "Staff", "Digital"  ],
@@ -1086,49 +1053,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
   const BASE_INTERVAL = 1400;
   const JITTER        = 600;
 </script>
-<!-- ▲▲▲  END OF EDITABLE SECTION  ▲▲▲ -->
 
-<style>
-  .wr-rotator {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: left;
-    padding: 3rem 1rem;
-    font-family: sans-serif;
-    gap: 1rem;
-  }
-  .wr-slot {
-    position: relative;
-    overflow: hidden;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .wr-word {
-    position: absolute;
-    font-weight: 500;
-    color: #111;
-    white-space: nowrap;
-  }
-  .wr-word.idle { transform: translateY(0); opacity: 1; }
-  @keyframes wr-slideUp {
-    0%   { transform: translateY(0);     opacity: 1; }
-    100% { transform: translateY(-110%); opacity: 0; }
-  }
-  @keyframes wr-slideIn {
-    0%   { transform: translateY(110%);  opacity: 0; }
-    100% { transform: translateY(0);     opacity: 1; }
-  }
-  .wr-divider {
-    color: #ccc;
-    font-weight: 300;
-    user-select: none;
-    flex-shrink: 0;
-  }
-</style>
 
 <div class="wr-rotator" id="wr-root"></div>
 
@@ -1181,7 +1106,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       const div = document.createElement('span');
       div.className = 'wr-divider';
       div.id = 'wr-divider-' + i;
-      div.textContent = '·';
+      div.textContent = '';
       root.appendChild(div);
     }
     const slot = document.createElement('div');
