@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case Study — Kareem Hindi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+  /* ─── Reset & Base ─────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FFFCF8;
+    --ink:   #111010;
+    --navy:  #00317c;
+    --warm:  #C8B89A;
+    --accent:#149954;
+    --mid:   #888078;
+    --light: #E8E3DC;
+
+    --fs-h2:   clamp(2rem, 4vw, 3.5rem);
+    --fs-h3:   clamp(1.4rem, 2.5vw, 2rem);
+    --fs-label: 0.72rem;
+    --fs-body:  1.05rem;
+
+    --header-h:    72px;
+    --header-h-sm: 52px;
+
+    --ease:     cubic-bezier(.22,.68,0,1.2);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Avenir Next', 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--warm); border-radius: 2px; }
+
+  /* ─── Typography ─────────────────────────────────── */
+  .serif { font-family: 'DM Serif Display', serif; }
+  .label {
+    font-family: 'Avenir Next', 'DM Sans', sans-serif;
+    font-size: var(--fs-label);
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  /* ─── HEADER — identical to portfolio7 ──────────── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    padding: 0 clamp(24px, 5vw, 64px);
+    z-index: 50;
+    background: var(--cream);
+    box-shadow: 0 1px 0 rgba(0,0,0,.07);
+    transition: height .4s var(--ease-out), background .4s, box-shadow .4s;
+  }
+
+  header.scrolled {
+    height: var(--header-h-sm);
+    background: rgba(255,252,248,.92);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(0,0,0,.1);
+  }
+
+  @media (max-width: 600px) {
+    header {
+      padding: 0 4px;
+      height: var(--header-h-sm);
+    }
+  }
+
+  .header-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Shuffler scene */
+  .shuffler-scene {
+    width: 275px;
+    height: 52px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .shuffler-card { width: 100%; height: 100%; position: relative; }
+  .shuffler-face {
+    position: absolute;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .shuffler-face img {
+    max-width: 100%;
+    max-height: 80%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Nav links */
+  nav { display: flex; gap: 36px; }
+  nav a {
+    font-size: .85rem;
+    font-weight: 500;
+    letter-spacing: .04em;
+    color: var(--ink);
+    text-decoration: none;
+    position: relative;
+    transition: color .2s;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width .3s var(--ease-out);
+  }
+  nav a:hover::after { width: 100%; }
+  nav a:hover { color: var(--accent); }
+
+  @media (max-width: 900px) { nav { gap: 20px; } }
+
+  /* ─── Hamburger ──────────────────────────────────── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--navy);
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform .35s var(--ease-out), opacity .25s, width .3s var(--ease-out);
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  @media (max-width: 600px) {
+    .hamburger {
+      display: flex;
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      z-index: 400;
+    }
+    #main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform .45s var(--ease-out), opacity .35s;
+      z-index: 350;
+      pointer-events: none;
+    }
+    #main-nav.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    #main-nav a {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.6rem;
+      letter-spacing: -.02em;
+      color: var(--navy);
+    }
+    #main-nav a::after { display: none; }
+
+    .header-inner {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .shuffler-scene {
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
+  /* ─── CASE STUDY PAGE LAYOUT ─────────────────────── */
+
+  /* 1. Page Header */
+  .cs-page-header {
+    padding: calc(var(--header-h) + 60px) clamp(24px, 8vw, 120px) 80px;
+    border-bottom: 1px solid var(--light);
+    opacity: 0;
+    animation: fadeUp .8s .1s var(--ease-out) forwards;
+  }
+
+  .cs-page-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .82rem;
+    font-weight: 500;
+    color: var(--mid);
+    text-decoration: none;
+    margin-bottom: 48px;
+    transition: color .2s, gap .2s;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .cs-page-back:hover { color: var(--ink); gap: 14px; }
+  .cs-page-back .arr { transition: transform .2s; display: inline-block; }
+  .cs-page-back:hover .arr { transform: translateX(-4px); }
+
+  .cs-page-kicker {
+    font-size: var(--fs-label);
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .cs-page-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: .97;
+    letter-spacing: -.03em;
+    margin-bottom: 28px;
+    max-width: 16ch;
+  }
+
+  .cs-page-summary {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--mid);
+    max-width: 55ch;
+    margin-bottom: 48px;
+  }
+
+  .cs-page-meta {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .cs-meta-item .meta-label {
+    font-size: var(--fs-label);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 6px;
+  }
+  .cs-meta-item .meta-value {
+    font-size: .92rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  /* 2. Full-width image */
+  .cs-full-img {
+    padding: 60px clamp(24px, 8vw, 120px) 0;
+  }
+  .cs-full-img-inner {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 16/7;
+    background: var(--light);
+    position: relative;
+  }
+  .cs-full-img-inner img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+
+
+/* video container*/
+.video-container {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;     /* Vertical centering (requires a container height) */
+  /*height: 100vh;            Example height for full-screen centering */
+  object-fit: contain;
+}
+
+.video-container video {
+  width: 80%;
+  height: 100%;
+  
+}
+
+  /* 3. Split Section */
+  .cs-split {
+    padding: 80px clamp(24px, 8vw, 120px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 100px);
+    align-items: center;
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  }
+  .cs-split.in-view { opacity: 1; transform: translateY(0); }
+  .cs-split.reverse-split { direction: rtl; }
+  .cs-split.reverse-split > * { direction: ltr; }
+
+  .cs-split-text h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .cs-split-text p {
+    font-size: var(--fs-body);
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--mid);
+    margin-bottom: 16px;
+  }
+  .cs-split-media {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    /* background: var(--light); */
+  }
+  .cs-split-media img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* 4. Problem / Solution / Outcome */
+  .cs-text-trio {
+    padding: 80px clamp(24px, 8vw, 120px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    border-top: 1px solid var(--light);
+    border-bottom: 1px solid var(--light);
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  }
+  .cs-text-trio.in-view { opacity: 1; transform: translateY(0); }
+
+  .cs-text-block h4 {
+    font-size: var(--fs-label);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .cs-text-block p {
+    font-size: var(--fs-body);
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--mid);
+  }
+
+  /* 5. Image Grid */
+  .cs-image-grid {
+    padding: 80px clamp(24px, 8vw, 120px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  }
+  .cs-image-grid.in-view { opacity: 1; transform: translateY(0); }
+
+  .cs-image-grid .grid-img {
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: var(--light);
+  }
+  .cs-image-grid .grid-img.tall {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+  .cs-image-grid .grid-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* 6. Quote / Callout Block */
+  .cs-callout {
+    padding: 80px clamp(24px, 8vw, 120px);
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  }
+  .cs-callout.in-view { opacity: 1; transform: translateY(0); }
+
+  .cs-callout blockquote {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    line-height: 1.2;
+    letter-spacing: -.02em;
+    max-width: 22ch;
+    margin: 0 auto 24px;
+  }
+  .cs-callout blockquote em { color: var(--warm); font-style: italic; }
+  .cs-callout cite {
+    font-size: .82rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--warm);
+    font-style: normal;
+  }
+
+  /* 7. Stats Row */
+  .cs-stats {
+    padding: 80px clamp(24px, 8vw, 120px);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    border-bottom: 1px solid var(--light);
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+  }
+  .cs-stats.in-view { opacity: 1; transform: translateY(0); }
+
+  .cs-stat-item { text-align: center; }
+  .cs-stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    letter-spacing: -.04em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .cs-stat-label {
+    font-size: .82rem;
+    font-weight: 400;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  /* 8. Next Case Study */
+  .cs-next {
+    padding: 80px clamp(24px, 8vw, 120px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border-top: 1px solid var(--light);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background .3s;
+  }
+  .cs-next:hover { background: var(--light); }
+  .cs-next-label {
+    font-size: var(--fs-label);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+  .cs-next-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: -.02em;
+  }
+  .cs-next-arrow {
+    font-size: 2rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: transform .3s var(--ease-out);
+  }
+  .cs-next:hover .cs-next-arrow { transform: translateX(8px); }
+
+  /* ─── Footer ─────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--light);
+    padding: 32px clamp(24px, 8vw, 120px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .78rem;
+    color: var(--mid);
+  }
+
+  /* ─── Animations ─────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Responsive ─────────────────────────────────── */
+  @media (max-width: 900px) {
+    .cs-split { grid-template-columns: 1fr; }
+    .cs-split.reverse-split { direction: ltr; }
+    .cs-text-trio { grid-template-columns: 1fr; }
+    .cs-stats { grid-template-columns: 1fr; gap: 32px; }
+    .cs-image-grid { grid-template-columns: 1fr 1fr; }
+    .cs-image-grid .grid-img.tall { grid-row: auto; aspect-ratio: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .cs-page-header {
+      padding: calc(var(--header-h-sm) + 32px) 16px 48px;
+    }
+    .cs-full-img { padding: 32px 16px 0; }
+    .cs-split { padding: 48px 16px; }
+    .cs-text-trio { padding: 48px 16px; }
+    .cs-image-grid { padding: 48px 16px; grid-template-columns: 1fr; }
+    .cs-image-grid .grid-img.tall { grid-row: auto; aspect-ratio: 1; }
+    .cs-callout { padding: 48px 16px; }
+    .cs-stats { padding: 48px 16px; }
+    .cs-next { padding: 48px 16px; flex-direction: column; align-items: flex-start; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+    .cs-page-meta { gap: 24px; }
+  }
+
+  /* ─── Lightbox ───────────────────────────────────── */
+  .cs-split-media {
+    position: relative;
+    cursor: zoom-in;
+  }
+  .cs-split-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: rgba(0,0,0,0);
+    transition: background .3s var(--ease-out);
+    pointer-events: none;
+  }
+  .cs-split-media:hover::after {
+    background: rgba(0,0,0,.08);
+  }
+  .lightbox-hint {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,252,248,.9);
+    border: 1px solid var(--light);
+    color: var(--ink);
+    font-size: .7rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 6px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .25s, transform .25s var(--ease-out);
+    pointer-events: none;
+    backdrop-filter: blur(6px);
+    z-index: 2;
+  }
+  .lightbox-hint svg { flex-shrink: 0; }
+  .cs-split-media:hover .lightbox-hint { opacity: 1; transform: translateY(0); }
+
+  /* Overlay */
+  #lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    align-items: center;
+    justify-content: center;
+    background: rgba(17,16,16,0);
+    transition: background .4s var(--ease-out);
+  }
+  #lightbox-overlay.lb-visible {
+    display: flex;
+    background: rgba(17,16,16,.92);
+  }
+  #lightbox-overlay.lb-open {
+    background: rgba(17,16,16,.92);
+  }
+
+  #lightbox-stage {
+    position: relative;
+    max-width: min(90vw, 1100px);
+    max-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(.94) translateY(12px);
+    transition: opacity .4s var(--ease-out), transform .4s var(--ease-out);
+  }
+  #lightbox-overlay.lb-open #lightbox-stage {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  #lightbox-stage img,
+  #lightbox-stage svg {
+    max-width: 100%;
+    max-height: 88vh;
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 32px 80px rgba(0,0,0,.5);
+  }
+
+  #lightbox-close {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--light);
+    color: var(--ink);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s, transform .2s var(--ease-out);
+    z-index: 910;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s .1s, background .2s, transform .2s var(--ease-out);
+  }
+  #lightbox-overlay.lb-open #lightbox-close {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #lightbox-close:hover { background: var(--light); transform: rotate(90deg); }
+
+  #lightbox-caption {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .78rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(255,252,248,.55);
+    opacity: 0;
+    transition: opacity .3s .2s;
+    white-space: nowrap;
+    z-index: 910;
+  }
+  #lightbox-overlay.lb-open #lightbox-caption { opacity: 1; }
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     HEADER — same as portfolio7
+════════════════════════════════════════ -->
+<header id="site-header">
+  <div class="header-inner">
+
+    <!-- Shuffler (left) -->
+    <div class="shuffler-scene" id="shuffler-scene">
+      <div class="shuffler-card">
+        <div class="shuffler-face">
+          <img id="shuffler-img" src="" alt="client logo">
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav (right) — links go back to index -->
+    <nav id="main-nav">
+      <a href="index.html#about">About</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+  </div>
+</header>
+
+<!-- Hamburger outside header so no stacking context traps it -->
+<button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+
+<!-- ════════════════════════════════════════
+     CASE STUDY CONTENT
+════════════════════════════════════════ -->
+
+<!-- 1. Page Header -->
+<div class="cs-page-header">
+  <a href="index.html#work" class="cs-page-back">
+    <span class="arr">←</span> Back to Work
+  </a>
+  <div class="cs-page-kicker">Enterprise Data Visualization Dashboard</div>
+  <h1 class="cs-page-title serif">Investment Risk & Analytics Platform</h1>
+  <p class="cs-page-summary">
+Providing increased granularity and transparency for data-driven decision making.
+
+  </p>
+  <div class="cs-page-meta">
+    <div class="cs-meta-item">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Lead Product Designer</div>
+    </div>
+    <!-- <div class="cs-meta-item">
+      <div class="meta-label">Timeline</div>
+      <div class="meta-value">Jan – May 2024 · 5 months</div>
+    </div> -->
+    <div class="cs-meta-item">
+      <div class="meta-label">Tools</div>
+      <div class="meta-value">Figma, Excel</div>
+    </div>
+    <div class="cs-meta-item">
+      <div class="meta-label">Industry</div>
+      <div class="meta-value">Finance</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. Full-width Hero Image -->
+<div class="cs-full-img">
+  <div class="cs-full-img-inner">
+    <!-- Replace with: <img src="your-hero-image.jpg" alt="Project hero"> -->
+    <div class="video-container" >
+    <video controls
+     src="Assets/NTVid.mp4" alt="CopmlyIQ Interactive" type="mov" autoplay muted playsinline loop controls> 
+      </video>
+  </div>
+
+
+  </div>
+</div>
+
+<!-- 3. Split Section A — Overview -->
+<div class="cs-split">
+  <div class="cs-split-text">
+    <h3 class="serif">Understanding the Problem Space</h3>
+    <p>A major financial institution's investment risk and analytics clients were operating with a patchwork of reporting sources and manually constructed analytic tools. The data existed — but it wasn't working hard enough. </p>
+    <p>Reports lacked the granularity clients needed to understand the true performance of their portfolios, leaving them without the visibility required to make confident adjustments, stress-test scenarios, or forecast with precision. </p>
+    <p>The gap between the data clients had and the insight they actually needed was costing them decision-making speed and confidence.</p>
+  </div>
+  <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
+    <span class="lightbox-hint">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5H10.5V4.5M10.5 1.5L7 5M4.5 10.5H1.5V7.5M1.5 10.5L5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Expand
+    </span>
+    <!-- Replace with: <img src="your-image.jpg" alt="Research insights"> -->
+    <!-- <image src="/Users/kareemhindi/Desktop/KrmDsn/HBS/ComplyIQ/ProcessFlow.png" alt="Research Process Diagram"></image> -->
+  <image src="Assets/NTResearch.jpg" alt="Process Flow Diagram"></image>
+  </div>
+</div>
+
+<!-- 4. Split Section B — reversed, lighter bg -->
+<div class="cs-split reverse-split" style="background:var(--light);">
+  <div class="cs-split-text">
+    <h3 class="serif">Designing the Solution</h3>
+        <p><h4> Discovery & Stakeholder Interviews</h4></p>
+Conducted in-depth interviews with key business stakeholders and current clients to understand the essential needs of the system, map existing workflows, and identify exactly where reporting was falling short.
+
+<p><h4>Scenario Mapping </h4></p>
+Each scenario was mapped by role and system to surface bottlenecks, redundant steps, and opportunities where automation could meaningfully reduce manual effort.
+
+<p><h4>Requirementse & Feature Backlog</h4></p>
+Hours of interview data were synthesized into a structured requirements and features backlog — defining essential functionality and establishing a clear foundation for design and development prioritization.
+
+
+<p><h4>Iterative UI Design</h4></p>
+The platform UI was designed through iterative cycles, demonstrating core capabilities including fine-grained forecasting, asset reclassification, and data interrogation. Each round incorporated client and stakeholder feedback before advancing to the next phase.
+
+<p><h4>Sprint Planning & Delivery</h4></p>
+Designs were structured into two-week development sprints, enabling the engineering team to deploy incrementally while maintaining tight alignment between build progress and validated design intent.
+
+  </div>
+  <div class="cs-split-media" data-lb-caption="ComplyIQ Wireframes" onclick="lbOpen(this)">
+    <span class="lightbox-hint">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5H10.5V4.5M10.5 1.5L7 5M4.5 10.5H1.5V7.5M1.5 10.5L5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Expand
+    </span>
+    <!-- Replace with: <img src="your-image.jpg" alt="Design process"> -->
+   <image src="Assets/NTMac.png" alt="IRAS Wireframes"> </image>
+  </div>
+</div>
+
+<div class="cs-split">
+  <div class="cs-split-text">
+    <h3 class="serif">Outcome</h3>
+    <p>The platform became an immutable source of truth — replacing fragmented reporting with a unified, authoritative view of each client's portfolio. </p>
+    <p>Clients gained customizable, granular access to their holdings data, enabling confident forecasting and data-backed decision making. Stakeholders across the institution could now interrogate risk and performance at a depth that previously required significant bespoke analyst effort.</p>
+  <p><h4> One Platform</h4> replacing multiple disconnected reporting sources</p>
+<p><h4> Full Transparency</h4> Increase in employee NPS post-launch.</p>
+<p><h4> Millions unlocked</h4> into portfolio performance and risk exposure for all stakeholders</p>
+  </div>
+  <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
+    <span class="lightbox-hint">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5H10.5V4.5M10.5 1.5L7 5M4.5 10.5H1.5V7.5M1.5 10.5L5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Expand
+    </span>
+  <image src="Assets/NTMac.png" alt="Process Flow Diagram"></image>
+  </div>
+</div>
+
+
+<!-- 5. Problem / Solution / Outcome -->
+<div class="cs-text-trio">
+  <div class="cs-text-block">
+    <h4>Problem</h4>
+    <p>Investment analytics clients were working across disconnected reporting tools that lacked the granularity needed to make confident portfolio decisions.</p>
+  </div>
+  <div class="cs-text-block">
+    <h4>Solution</h4>
+    <p> Conducted discovery interviews and synthesized requirements into an iterative Figma-designed cloud platform delivering unified data access, forecasting, and asset reclassification capabilities.</p>
+  </div>
+  <div class="cs-text-block">
+    <h4>Outcome</h4>
+    <p>The platform became a single source of truth, giving clients granular, customizable access to their portfolio data and enabling data-backed decision making at scale.</p>
+  </div>
+</div>
+
+<!-- 6. Stats Row -->
+<!-- <div class="cs-stats">
+  <div class="cs-stat-item">
+    <span class="cs-stat-number">40%</span>
+    <span class="cs-stat-label">Reduction in reporting time.</span>
+  </div>
+  <div class="cs-stat-item">
+    <span class="cs-stat-number">+41</span>
+    <span class="cs-stat-label">NPS improvement post-launch</span>
+  </div>
+  <div class="cs-stat-item">
+    <span class="cs-stat-number">18%</span>
+    <span class="cs-stat-label">Decrease in monthly churn</span>
+  </div>
+</div> -->
+
+
+
+<!-- 11. Next Case Study -->
+<a href="#" class="cs-next">
+  <div>
+    <div class="cs-next-label">Next Case Study</div>
+    <div class="cs-next-title serif">Mobile Experience Strategy & Redesign</div>
+  </div>
+  <span class="cs-next-arrow">→</span>
+</a>
+
+<!-- Footer -->
+<footer>
+  <span>© 2026 Kareem Hindi</span>
+  <a href="index.html#work" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
+</footer>
+
+
+<!-- ════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════ -->
+
+<!-- Shuffler — same image list as portfolio7 -->
+<script>
+const IMAGES = [
+  "logos/acdc.png","logos/amzn.png","logos/bking.jpg",
+  "logos/ccla.png","logos/cnn.png","logos/dmns.png","logos/dnkn.png",
+  "logos/fdx.png","logos/flix.jpg","logos/ggl.png","logos/gp.png",
+  "logos/hndrx.png","logos/hrdrkcf.png","logos/kbok.jpg",
+  "logos/kbook.jpg","logos/kdidas.jpg","logos/kfc.png","logos/KMC.jpg",
+  "logos/Krklnd.png","logos/kss.png","logos/ldzpln.png","logos/mcks.jpg",
+  "logos/mones.jpg","logos/mtlc.png","logos/nintendo.png","logos/nk.png",
+  "logos/onlyfns.png","logos/pzzht.png","logos/rbk.png","logos/rnch.png",
+  "logos/sbwy.png","logos/sega.png","logos/Sprme.png","logos/strbkcs.png",
+  "logos/tbll.png"
+];
+
+let shufflerQueue = [];
+function shufflerShuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+function shufflerNext() {
+  if (!shufflerQueue.length) {
+    shufflerQueue = [...Array(IMAGES.length).keys()];
+    shufflerShuffle(shufflerQueue);
+  }
+  return IMAGES[shufflerQueue.pop()];
+}
+const shufflerImg = document.getElementById('shuffler-img');
+shufflerImg.src = shufflerNext();
+document.getElementById('shuffler-scene').addEventListener('click', () => {
+  shufflerImg.src = shufflerNext();
+});
+</script>
+
+<!-- Header scroll shrink -->
+<script>
+const header = document.getElementById('site-header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+</script>
+
+<!-- Hamburger menu -->
+<script>
+function toggleMenu() {
+  const nav = document.getElementById('main-nav');
+  const btn = document.getElementById('hamburger');
+  const isOpen = nav.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('main-nav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded', false);
+  document.body.style.overflow = '';
+}
+// Close menu on nav link click
+document.querySelectorAll('#main-nav a').forEach(a => a.addEventListener('click', closeMenu));
+</script>
+
+<!-- Scroll-triggered reveal -->
+<script>
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.cs-split, .cs-text-trio, .cs-image-grid, .cs-callout, .cs-stats')
+  .forEach(el => revealObserver.observe(el));
+</script>
+
+<!-- Lightbox Overlay -->
+<div id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image lightbox" onclick="lbClose(event)">
+  <div id="lightbox-stage"></div>
+  <button id="lightbox-close" onclick="lbClose()" aria-label="Close lightbox">✕</button>
+  <div id="lightbox-caption"></div>
+</div>
+
+<!-- Lightbox Script -->
+<script>
+(function () {
+  const overlay  = document.getElementById('lightbox-overlay');
+  const stage    = document.getElementById('lightbox-stage');
+  const caption  = document.getElementById('lightbox-caption');
+
+  function lbOpen(triggerEl) {
+  const media = triggerEl.querySelector('img, image');
+  if (!media) return;
+
+  stage.innerHTML = '';
+
+  const img = document.createElement('img');
+  // <image> tags store src in href or xlink:href in some browsers
+  img.src = media.getAttribute('src')
+         || media.getAttribute('href')
+         || media.getAttribute('xlink:href')
+         || media.currentSrc
+         || '';
+  img.alt = media.getAttribute('alt') || '';
+  stage.appendChild(img);
+
+    // Caption
+    caption.textContent = triggerEl.dataset.lbCaption || '';
+
+    // Show
+    overlay.classList.add('lb-visible');
+    requestAnimationFrame(() => overlay.classList.add('lb-open'));
+    document.addEventListener('keydown', lbKeyHandler);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function lbClose(e) {
+    // Only close if clicking backdrop (not the stage)
+    if (e && e.target === stage) return;
+    overlay.classList.remove('lb-open');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', lbKeyHandler);
+    overlay.addEventListener('transitionend', function handler() {
+      overlay.classList.remove('lb-visible');
+      stage.innerHTML = '';
+      overlay.removeEventListener('transitionend', handler);
+    }, { once: true });
+  }
+
+  function lbKeyHandler(e) {
+    if (e.key === 'Escape') lbClose();
+  }
+
+  // Expose to global scope
+  window.lbOpen  = lbOpen;
+  window.lbClose = lbClose;
+})();
+</script>
+
+</body>
+</html>
