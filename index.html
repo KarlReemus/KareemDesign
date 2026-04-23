@@ -15,7 +15,7 @@
     --ink:   #111010;
     --navy:   #00317c;
     --warm:  #C8B89A;
-    --accent:#c73f15;
+    --accent:#149954;
     --mid:   #888078;
     --light: #E8E3DC;
 
@@ -85,20 +85,44 @@
 }
 
 header {
-    background:var(--cream);
+    background: var(--cream);
     box-shadow: 0 1px 0 rgba(0,0,0,.07);
   }
+
+@media (max-width: 600px) {
+  header {
+    padding: 0 4px;
+    height: var(--header-h-sm);
+  }
+}
 
 #home {
   padding-top: calc(var(--header-h-sm) + 1px);
   padding-bottom: 1px;
 }
+@media (max-width: 600px) {
+  #home {
+    padding-top: calc(var(--header-h-sm) - 2px);
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
 .wr-rotator {
   padding: .1rem .1rem;
+}
+@media (max-width: 600px) {
+  .wr-rotator {
+    padding: 0;
+  }
 }
 section {
    padding: 04px 24px; 
   }
+@media (max-width: 600px) {
+  section {
+    padding: 4px 14px;
+  }
+}
 
 
   .header-inner {
@@ -191,7 +215,7 @@ section {
     justify-content: flex-end;
     padding: calc(var(--header-h) + 8px) clamp(24px, 8vw, 120px) clamp(60px, 10vh, 120px);
     position: relative;
-    overflow: hidden;
+    overflow: clip;
   }
 
   /* Decorative grid lines 
@@ -345,7 +369,7 @@ section {
   }
   .cs-thumb-media img {
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform .7s var(--ease-out);
   }
   .cs-thumb-media:hover img { transform: scale(1.06); }
@@ -951,6 +975,7 @@ const IMAGES = [
 "logos/acdc.png",
 "logos/amzn.png",
 "logos/bking.jpg", 
+//"logos/brzzrs.png",
 "logos/ccla.png",
 "logos/cnn.png",
 "logos/dmns.png",
@@ -961,6 +986,7 @@ const IMAGES = [
 "logos/gp.png",
 "logos/hndrx.png",
 "logos/hrdrkcf.png",
+//"logos/hub.jpg",
 "logos/kbok.jpg",
 "logos/kbook.jpg",
 "logos/kdidas.jpg",
@@ -974,6 +1000,7 @@ const IMAGES = [
 "logos/mtlc.png",
 "logos/nintendo.png",
 "logos/nk.png",
+//"logos/onlyfns.png",
 "logos/pzzht.png",
 "logos/rbk.png",
 "logos/rnch.png",
@@ -1061,7 +1088,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 <script>
   const WORD_ARRAYS = [
     /* Slot 1 */ ["Product",    "Principal",   "Senior",    "Lead",    "Staff", "Digital"  ],
-    /* Slot 2 */ ["Experience", "Product",     "Systems",   "Interaction"                  ],
+    /* Slot 2 */ ["Experience", "Product",     "Systems",   "Interaction", "Design",                  ],
     /* Slot 3 */ ["Designer",   "Strategist",  "Lead",      "Researcher", "Architect", "Visionary" ]
   ];
   const BASE_INTERVAL = 1400;
@@ -1143,7 +1170,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
     var slotHeight = getSlotHeight();
 
     root.style.gap = gap;
-    root.style.padding = isMobile() ? '1.5rem 0.5rem' : '3rem 1rem';
+    root.style.padding = isMobile() ? '0.2rem 0.1rem' : '3rem 1rem';
 
     WORD_ARRAYS.forEach(function(pool, i) {
       var slot = document.getElementById('wr-slot-' + i);
@@ -1238,8 +1265,8 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
     </h1>
 
     <p class="hero-statement">
-      I create digital products that pair clarity with strategy. —<br>
-      turning complex problems into experiences people genuinely enjoy
+      I create digital products that combine data with intention. —<br>
+      turning complex problems into experiences people genuinely enjoy.
     </p>
 
     <div class="hero-cta">
@@ -1265,60 +1292,67 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 
       <!-- Case Study 1 -->
       <article class="cs-thumb" data-case="0">
-        <div class="cs-thumb-media" onclick="openCaseStudy(0)">
-          
+        <div class="cs-thumb-media" onclick="location.href='case-study-pulse.html'">
+        <img src="Assets/ComplyMac.png", alt="Comply IQ Case Study">
         </div>
         <div class="cs-thumb-info">
-          <span class="cs-thumb-meta"><span class="cs-category-dot"></span> SaaS · Dashboard</span>
-          <h2 class="cs-thumb-title serif">Pulse Analytics<br>Redesign</h2>
-          <p class="cs-thumb-desc">Transformed a cluttered B2B analytics platform into a focused, decision-ready dashboard — reducing time-to-insight by 40% for over 12,000 users.</p>
-          <button class="cs-link" onclick="openCaseStudy(0)">Read case study →</button>
+          <span class="cs-thumb-meta"><span class="cs-category-dot"></span> AI-Powered · Dashboard</span>
+          <h2 class="cs-thumb-title serif">Comply IQ<br>Design</h2>
+          <p class="cs-thumb-desc">    An AI-assisted report generator that transformed how hospital auditors capture, reference, and document compliance findings.</p>
+          <a class="cs-link" href="Comply-case-study.html">Read case study →</a>
         </div>
       </article>
 
       <!-- Case Study 2 -->
       <article class="cs-thumb reverse" data-case="1">
-        <div class="cs-thumb-media" onclick="openCaseStudy(1)">
-          <svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
-            <rect width="600" height="450" fill="#F0EDE6"/>
-            <rect x="60" y="50" width="200" height="350" rx="24" fill="#fff" style="filter:drop-shadow(0 8px 32px rgba(0,0,0,.12))"/>
-            <rect x="80" y="80" width="160" height="90" rx="12" fill="#E8E3DC"/>
-            <rect x="80" y="186" width="100" height="12" rx="4" fill="#222"/>
-            <rect x="80" y="206" width="140" height="10" rx="4" fill="#AAA"/>
-            <rect x="80" y="228" width="120" height="10" rx="4" fill="#CCC"/>
-            <rect x="80" y="264" width="160" height="36" rx="10" fill="#D4522A"/>
-            <rect x="80" y="310" width="70" height="10" rx="4" fill="#E8E3DC"/>
-            <rect x="80" y="330" width="90" height="10" rx="4" fill="#E8E3DC"/>
-            <rect x="80" y="350" width="60" height="10" rx="4" fill="#E8E3DC"/>
-            <!-- second card -->
-            <rect x="310" y="80" width="200" height="300" rx="24" fill="#fff" style="filter:drop-shadow(0 8px 32px rgba(0,0,0,.09))"/>
-            <rect x="330" y="100" width="160" height="100" rx="12" fill="#DEDAD2"/>
-            <rect x="330" y="216" width="100" height="12" rx="4" fill="#222"/>
-            <rect x="330" y="236" width="140" height="10" rx="4" fill="#BBB"/>
-            <rect x="330" y="266" width="160" height="36" rx="10" fill="#111"/>
-            <circle cx="350" cy="340" r="8" fill="#D4522A"/>
-            <circle cx="375" cy="340" r="8" fill="#E8E3DC"/>
-            <circle cx="400" cy="340" r="8" fill="#E8E3DC"/>
-          </svg>
+        <div class="cs-thumb-media" onclick="location.href='carp-case-study.html'">
+           <img src="Assets/CarpMac.png", alt="Medical Coding Case Study">
+
         </div>
         <div class="cs-thumb-info">
-          <span class="cs-thumb-meta"><span class="cs-category-dot"></span> E-Commerce · Mobile</span>
-          <h2 class="cs-thumb-title serif">Lumen Shop<br>Mobile App</h2>
-          <p class="cs-thumb-desc">End-to-end design of a sustainable fashion marketplace — from discovery to checkout — achieving a 28% lift in conversion and a 4.8★ App Store rating.</p>
-          <button class="cs-link" onclick="openCaseStudy(1)">Read case study →</button>
+          <span class="cs-thumb-meta"><span class="cs-category-dot"></span> Healthcare · Web App</span>
+          <h2 class="cs-thumb-title serif">Medical Coding Workflow<br>Redesign</h2>
+          <p class="cs-thumb-desc">An AI-assisted patient chart reader streamlining medical coding workflows.</p>
+          <a class="cs-link" href="carp-case-study.html">Read case study →</a>
         </div>
       </article>
 
       <!-- Case Study 3 -->
       <article class="cs-thumb" data-case="2">
-        <div class="cs-thumb-media" onclick="openCaseStudy(2)">
-         
+        <div class="cs-thumb-media" onclick="location.href='IRAS-case-study.html'">
+          <img src="Assets/NTMac.png", alt="Disability Management Case Study">
         </div>
         <div class="cs-thumb-info">
-          <span class="cs-thumb-meta"><span class="cs-category-dot"></span> Developer Tools · Web</span>
-          <h2 class="cs-thumb-title serif">Forge Dev<br>Platform</h2>
-          <p class="cs-thumb-desc">Redesigned a developer CI/CD platform used by 80,000+ engineers — simplifying complex workflows and reducing onboarding time from 2 days to 4 hours.</p>
-          <button class="cs-link" onclick="openCaseStudy(2)">Read case study →</button>
+          <span class="cs-thumb-meta"><span class="cs-category-dot"></span> Financial Visualization · PowerBI</span>
+          <h2 class="cs-thumb-title serif">Investment Risk & Analytics <br>Platform</h2>
+          <p class="cs-thumb-desc">Real-Time Data Transparency for Data-Driven Insights</p>
+          <a class="cs-link" href="IRAS-case-study.html">Read case study →</a>
+        </div>
+      </article>
+
+      <!-- Case Study 4 -->
+      <article class="cs-thumb reverse" data-case="3">
+        <div class="cs-thumb-media">
+        <img src="Assets/SedgwickMac.png", alt="Disability Dashboard Case Study">
+        </div>
+        <div class="cs-thumb-info">
+          <span class="cs-thumb-meta"><span class="cs-category-dot"></span> Healthcare · Platform</span>
+          <h2 class="cs-thumb-title serif">Disability Claims Management<br>Platform</h2>
+          <p class="cs-thumb-desc">Transforming a complex claims management workflow into a streamlined process.</p>
+          <a class="cs-link" href="#">Read case study →</a>
+        </div>
+      </article>
+
+      <!-- Case Study 5 -->
+      <article class="cs-thumb" data-case="4">
+        <div class="cs-thumb-media">
+           <img src="Assets/AAAIphone.png", alt="Mobile Strategy Case Study">
+        </div>
+        <div class="cs-thumb-info">
+          <span class="cs-thumb-meta"><span class="cs-category-dot"></span> Automotive · Mobile</span>
+          <h2 class="cs-thumb-title serif">Mobile Experience<br>Strategy and Redesign</h2>
+          <p class="cs-thumb-desc">Aligning strategies to increase member adoption 10x.</p>
+          <a class="cs-link" href="#">Read case study →</a>
         </div>
       </article>
 
@@ -1385,100 +1419,6 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 </div><!-- /homepage -->
 
 
-<!-- ════════════════════════════════════════
-     CASE STUDY PAGE (shared template)
-════════════════════════════════════════ -->
-<div id="case-study-page">
-
-  <div class="cs-page-header">
-    <button class="cs-page-back" onclick="closeCaseStudy()">
-      <span class="arr">←</span> Back to Work
-    </button>
-    <div class="cs-page-kicker" id="cs-kicker">SaaS · Dashboard</div>
-    <h1 class="cs-page-title serif" id="cs-title">Pulse Analytics Redesign</h1>
-    <p class="cs-page-summary" id="cs-summary">Transformed a cluttered B2B analytics platform into a focused, decision-ready dashboard — reducing time-to-insight by 40%.</p>
-    <div class="cs-page-meta">
-      <div class="cs-meta-item">
-        <div class="meta-label">Role</div>
-        <div class="meta-value" id="cs-role">Lead Product Designer</div>
-      </div>
-      <div class="cs-meta-item">
-        <div class="meta-label">Timeline</div>
-        <div class="meta-value" id="cs-timeline">Jan – May 2024 · 5 months</div>
-      </div>
-      <div class="cs-meta-item">
-        <div class="meta-label">Tools</div>
-        <div class="meta-value" id="cs-tools">Figma, Maze, Loom</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Full-width hero image -->
-  <div class="cs-full-img" style="padding-top:60px;">
-    <div class="cs-full-img-inner" id="cs-hero-img">
-      <!-- SVG injected by JS -->
-    </div>
-  </div>
-
-  <!-- Split Section A -->
-  <div class="cs-split">
-    <div class="cs-split-text">
-      <h3 class="serif" id="cs-split-a-title">Understanding the Problem Space</h3>
-      <p id="cs-split-a-p1">The existing platform had accumulated 4 years of feature requests without a coherent information architecture. Users were spending more time navigating than analysing — a fatal flaw in a tool meant to accelerate decisions.</p>
-      <p>We ran 22 contextual inquiry sessions across three customer segments, mapping every touchpoint from login to export. The patterns were clear: too many paths to the same destination, and a complete absence of progressive disclosure.</p>
-    </div>
-    <div class="cs-split-media">
-      
-    </div>
-  </div>
-
-  <!-- Split Section B (reversed) -->
-  <div class="cs-split reverse-split" style="background:var(--light);padding-top:80px;padding-bottom:80px;">
-    <div class="cs-split-text">
-      <h3 class="serif">Designing the New System</h3>
-      <p>The solution centred on a modular dashboard architecture where users could pin the metrics that mattered most, hiding complexity behind progressive disclosure layers. We established a clear visual hierarchy using size, weight, and spatial grouping rather than colour alone.</p>
-      <p>Fourteen iterations. Three rounds of usability testing. One design system with 240 components.</p>
-    </div>
-    <div class="cs-split-media">
-     
-    </div>
-  </div>
-
-  <!-- Problem / Solution / Outcome -->
-  <div class="cs-text-trio">
-    <div class="cs-text-block">
-      <h4>Problem</h4>
-      <p>Users were abandoning the platform mid-session due to overwhelming navigation, inconsistent patterns, and a complete lack of data hierarchy. Churn was climbing and NPS sat at a painful −12.</p>
-    </div>
-    <div class="cs-text-block">
-      <h4>Solution</h4>
-      <p>A modular, permission-aware dashboard with a single source of truth per metric, clear visual hierarchy, and a progressive disclosure model that hides advanced config behind intentional interaction.</p>
-    </div>
-    <div class="cs-text-block">
-      <h4>Outcome</h4>
-      <p>Time-to-insight dropped 40%. NPS rose from −12 to +41 in 6 months post-launch. Churn reduced by 18%. The design system is now the foundation for the company's next three product lines.</p>
-    </div>
-  </div>
-
-  <!-- Image Grid -->
-  <div class="cs-image-grid">
-    <div class="grid-img tall">
-     
-    </div>
-    <div class="grid-img">
-      
-    </div>
-    <div class="grid-img">
-      
-    </div>
-  </div>
-
-  <footer style="margin-top:40px;">
-    <span>© 2025 Kareem Hindi</span>
-    <button onclick="closeCaseStudy()" class="cs-link" style="font-size:.82rem;">← Back to Work</button>
-  </footer>
-
-</div><!-- /case-study-page -->
 
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -1576,6 +1516,6 @@ function closeMenu() {
   document.getElementById('hamburger').setAttribute('aria-expanded', false);
   document.body.style.overflow = '';
 }
-</script>
+</script> 
 </body>
 </html>
