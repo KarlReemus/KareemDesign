@@ -684,7 +684,25 @@
 </style>
 </head>
 <body>
+<!--password-->
+<script>
+  (function() {
+    const PASSWORD = "yourpassword"; // 👈 change this
+    const SESSION_KEY = "cs_auth";
 
+    if (sessionStorage.getItem(SESSION_KEY) !== "1") {
+      const input = prompt("Enter password to view this page:");
+      if (input !== KHCaseStudy) {
+        document.documentElement.innerHTML =
+          "<div style='font-family:sans-serif;text-align:center;padding:80px'>" +
+          "<h2>Access Denied</h2><p>Incorrect password.</p>" +
+          "<button onclick='location.reload()'>Try Again</button></div>";
+        return;
+      }
+      sessionStorage.setItem(SESSION_KEY, "1");
+    }
+  })();
+</script>
 <!-- ════════════════════════════════════════
      HEADER — same as portfolio7
 ════════════════════════════════════════ -->
