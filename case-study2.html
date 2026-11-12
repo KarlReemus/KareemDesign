@@ -684,6 +684,25 @@
 </style>
 </head>
 <body>
+<!--password-->
+<script>
+  (function() {
+    const PASSWORD = "yourpassword"; // 👈 change this
+    const SESSION_KEY = "cs_auth";
+
+    if (sessionStorage.getItem(SESSION_KEY) !== "1") {
+      const input = prompt("Enter password to view this page:");
+      if (input !== KHCaseStudy) {
+        document.documentElement.innerHTML =
+          "<div style='font-family:sans-serif;text-align:center;padding:80px'>" +
+          "<h2>Access Denied</h2><p>Incorrect password.</p>" +
+          "<button onclick='location.reload()'>Try Again</button></div>";
+        return;
+      }
+      sessionStorage.setItem(SESSION_KEY, "1");
+    }
+  })();
+</script>
 
 <!-- ════════════════════════════════════════
      HEADER — same as portfolio7
@@ -725,10 +744,10 @@
   <a href="index.html#work" class="cs-page-back">
     <span class="arr">←</span> Back to Work
   </a>
-  <div class="cs-page-kicker">AI Powered Dashboard</div>
-  <h1 class="cs-page-title serif">Comply-IQ</h1>
+  <div class="cs-page-kicker">Medical Coding Workflow</div>
+  <h1 class="cs-page-title serif">Coding and ACA Reporting Platform</h1>
   <p class="cs-page-summary">
-    An AI-assisted report generator that transformed how hospital auditors capture, reference, and document compliance findings.
+    An AI-assisted patient chart reader streamlining medical coders workflows.
 
   </p>
   <div class="cs-page-meta">
@@ -742,7 +761,7 @@
     </div> -->
     <div class="cs-meta-item">
       <div class="meta-label">Tools</div>
-      <div class="meta-value">Figma, Replit</div>
+      <div class="meta-value">Figma, OpenAI</div>
     </div>
     <div class="cs-meta-item">
       <div class="meta-label">Industry</div>
@@ -757,7 +776,7 @@
     <!-- Replace with: <img src="your-hero-image.jpg" alt="Project hero"> -->
     <div class="video-container" >
     <video controls
-     src="Assets/ComplyIQ-Motion.mp4" alt="CopmlyIQ Interactive" type="mov" autoplay muted playsinline loop controls> 
+     src="Assets/HCSCVid.mp4" alt="CopmlyIQ Interactive" type="mov" autoplay muted playsinline loop controls> 
       </video>
   </div>
 
@@ -769,8 +788,9 @@
 <div class="cs-split">
   <div class="cs-split-text">
     <h3 class="serif">Understanding the Problem Space</h3>
-    <p>A large healthcare consultancy relied on fragmented, outdated systems to produce compliance reports for hospital clients. </p>
-    <p>During on-site audits, contractors juggled multiple disconnected tools — manually capturing notes, photographing findings, and cross-referencing standards — then attempted to stitch everything into a single polished document. With multiple consultants contributing to each report, inconsistencies in tone, formatting, and depth were common. Supervisors bore the burden of reconciling those differences before anything could be delivered, adding hours of rework to every engagement.</p>
+    <p>A leading healthcare provider's medical coding team was caught between outdated, siloed tools and a fragmented document landscape.</p>
+    <p>Coders navigated multiple systems just to complete routine tasks — each step requiring manual handoffs, redundant validations, and time-consuming document retrieval from scattered locations.</p>
+    <p> The result: unnecessary cognitive load on skilled staff and a slow, error-prone charting process.</p>
   </div>
   <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
     <span class="lightbox-hint">
@@ -779,7 +799,7 @@
     </span>
     <!-- Replace with: <img src="your-image.jpg" alt="Research insights"> -->
     <!-- <image src="/Users/kareemhindi/Desktop/KrmDsn/HBS/ComplyIQ/ProcessFlow.png" alt="Research Process Diagram"></image> -->
-  <image src="Assets/ComplyIQ-process.jpg" alt="Process Flow Diagram"></image>
+  <image src="Assets/CARPResearch.jpg" alt="Process Flow Diagram"></image>
   </div>
 </div>
 
@@ -788,17 +808,16 @@
   <div class="cs-split-text">
     <h3 class="serif">Designing the Solution</h3>
         <p><h4>Discovery & stakeholder interviews</h4></p>
-Conducted multiple rounds of interviews and process walkthroughs with consultants, supervisors, and subject matter experts to understand the full audit and reporting lifecycle.
-<p><h4>Current & Future State Process Mapping </h4></p>
-Synthesized research into current-state process maps that exposed friction points, then developed future-state maps to align stakeholders around a shared vision before design began.
-<p><h4>Persona Development</h4></p>
-Built personas representing the primary user types — field consultants and report supervisors — grounding design decisions in real needs and workflows.
-<p><h4>Requirements & Feature Prioritization</h4></p>
-Translated research outputs into business and design requirements, then worked with stakeholders to prioritize features for an achievable MVP.
-<p><h4>Iterative Design in Figma</h4></p>
-Designed key workflows and component documentation across multiple iterations, gathering continuous feedback from stakeholders and SMEs to validate and refine the experience.
+Conducted in-depth interviews with business stakeholders, medical coders, and technology architects. Had coders walk me through their process end-to-end to surface real pain points beyond what stakeholders assumed.
+<p><h4>Current & Future State Blueprinting </h4></p>
+Synthesized research into a current-state service blueprint mapping the full technology stack and user flows across the coding process — then defined the future state to align teams around a shared vision.
+<p><h4>Requirementse & Feature Prioritization</h4></p>
+Built an extensive backlog of features and requirements, then facilitated prioritization sessions to sequence design and development work against business impact.
+
+<p><h4>Iterative Figma in Design</h4></p>
+Designed complete end-to-end workflows in Figma, iterating through multiple rounds of feedback with stakeholders and coders. Demonstrated full functionality and edge cases to validate solutions before development.
 <p><h4>Developer Handoff & Build Support</h4></p>
-Documented components and flows for a development team building the application in Replit, supporting the implementation through to a testable MVP. </p>
+Partnered with engineering to translate the feature backlog into a structured sprint timeline — including effort estimates and delivery prioritization — to enable a smooth, confident build.
 
   </div>
   <div class="cs-split-media" data-lb-caption="ComplyIQ Wireframes" onclick="lbOpen(this)">
@@ -807,23 +826,24 @@ Documented components and flows for a development team building the application 
       Expand
     </span>
     <!-- Replace with: <img src="your-image.jpg" alt="Design process"> -->
-   <image src="Assets/ComplyWires.png" alt="ComplyIQ Wireframes"> </image>
+   <image src="Assets/CarpWires.jpg" alt="ComplyIQ Wireframes"> </image>
   </div>
 </div>
 
 <div class="cs-split">
   <div class="cs-split-text">
     <h3 class="serif">Outcome</h3>
-    <p>ComplyIQ is an AI-assisted dashboard that streamlines the entire audit reporting workflow. Consultants upload rough field notes and images directly into the platform, which automatically identifies relevant standards and policies, structures findings, and formats recommendations in a consistent professional tone — with the AI handling what previously required hours of manual effort.</p>
-    <p>ComplyIQ eliminated hours of manual rewriting, referencing, and formatting per report. Consultants now generate complete, polished reports in a fraction of the previous time. Supervisors were freed from the bottleneck of reconciling inconsistent submissions, and the consultancy significantly reduced cost and time across client engagements.</p>
-</p>
+    <p>Consolidating disparate tools into a single web-based application reduced charting time and eliminated friction across the workflow. </p>
+    <p>Backend automation removed the manual burden of locating and distributing charts, giving coders more time for the high-value work only they can do.</p>
+  <p>Days → Hours  reduction in average charting time</p>
+<p>One platform → replacing multiple disconnected systems</p>
   </div>
   <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
     <span class="lightbox-hint">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5H10.5V4.5M10.5 1.5L7 5M4.5 10.5H1.5V7.5M1.5 10.5L5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Expand
     </span>
-  <image src="Assets/ComplyMac.png" alt="Process Flow Diagram"></image>
+  <image src="Assets/CarpMac.png" alt="Process Flow Diagram"></image>
   </div>
 </div>
 
@@ -832,15 +852,15 @@ Documented components and flows for a development team building the application 
 <div class="cs-text-trio">
   <div class="cs-text-block">
     <h4>Problem</h4>
-    <p>A large healthcare consultancy relied on outdated technology to create necessary reports for their clients.</p>
+    <p>Medical coders were navigating multiple outdated, siloed systems to complete routine tasks, creating manual bottlenecks and slowing the charting process.</p>
   </div>
   <div class="cs-text-block">
     <h4>Solution</h4>
-    <p>An AI assisted report generator automated cumbersome workflows and provided consistency in formatting and tone.</p>
+    <p> Led end-to-end UX from stakeholder research and service blueprinting through iterative Figma design and developer sprint planning to consolidate the workflow into a single web-based application.</p>
   </div>
   <div class="cs-text-block">
     <h4>Outcome</h4>
-    <p>ComplyIQ reduced the time to create reports to a fraction of the time saving the organization thousands client costs.</p>
+    <p> Consolidating the platform eliminated manual distribution effort and reduced charting time, freeing coders to focus on higher-value work.</p>
   </div>
 </div>
 
@@ -866,7 +886,7 @@ Documented components and flows for a development team building the application 
 <a href="#" class="cs-next">
   <div>
     <div class="cs-next-label">Next Case Study</div>
-    <div class="cs-next-title serif">Coding and ACA Reporting Platform</div>
+    <div class="cs-next-title serif">Disability Claims Management Platform</div>
   </div>
   <span class="cs-next-arrow">→</span>
 </a>
@@ -874,7 +894,7 @@ Documented components and flows for a development team building the application 
 <!-- Footer -->
 <footer>
   <span>© 2026 Kareem Hindi</span>
-  <a href="index.html#work" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
+  <a href="case-study3.html" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
 </footer>
 
 

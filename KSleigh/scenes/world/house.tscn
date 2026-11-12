@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/world/house.gd" id="1_h"]
+[ext_resource type="Texture2D" path="res://assets/sprites/world/house_a.png" id="2_a"]
+[ext_resource type="Texture2D" path="res://assets/sprites/world/house_b.png" id="3_b"]
+[ext_resource type="Texture2D" path="res://assets/sprites/world/house_c.png" id="4_c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chimney"]
+size = Vector2(90, 40)
+
+[node name="House" type="Node2D"]
+script = ExtResource("1_h")
+textures = Array[Texture2D]([ExtResource("2_a"), ExtResource("3_b"), ExtResource("4_c")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -100)
+texture = ExtResource("2_a")
+
+[node name="Chimney" type="Area2D" parent="." groups=["chimney"]]
+position = Vector2(56, -172)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chimney"]
+shape = SubResource("RectangleShape2D_chimney")

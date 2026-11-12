@@ -16,7 +16,7 @@
     --navy:   #00317c;
     --warm:  #C8B89A;
     --accent:#149954;
-    --mid:   #888078;
+    --mid:   #2c2c2c;
     --light: #E8E3DC;
 
     --fs-hero: clamp(3.2rem, 7vw, 6.5rem);
@@ -218,33 +218,7 @@ section {
     overflow: clip;
   }
 
-  /* Decorative grid lines 
-  #home::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(0,0,0,.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0,0,0,.04) 1px, transparent 1px);
-    background-size: calc(100% / 12) 80px;
-    pointer-events: none;
-  }
-*/
-  /* Accent circle */
-  .hero-circle {
-    position: absolute;
-    right: clamp(-60px, -4vw, -20px);
-    top: 50%;
-    transform: translateY(-54%);
-    width: clamp(280px, 36vw, 560px);
-    height: clamp(280px, 36vw, 560px);
-    border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%, var(--light), transparent 70%);
-    border: 1px solid var(--light);
-    pointer-events: none;
-    opacity: 0;
-    animation: fadeUp .9s .6s var(--ease-out) forwards;
-  }
+ 
 
   .hero-tag {
     opacity: 0;
@@ -487,7 +461,7 @@ section {
     font-size: var(--fs-body);
     font-weight: 300;
     line-height: 1.8;
-    color: rgba(247,244,239,.7);
+    color: rgb(249, 248, 246);
     margin-bottom: 20px;
   }
 
@@ -519,7 +493,7 @@ section {
   .skill-item .skill-tools {
     font-size: .82rem;
     font-weight: 300;
-    color: rgba(247,244,239,.5);
+    color: rgba(246, 246, 246, 0.966);
     line-height: 1.5;
   }
 
@@ -1292,7 +1266,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 
       <!-- Case Study 1 -->
       <article class="cs-thumb" data-case="0">
-        <div class="cs-thumb-media" onclick="location.href='case-study-pulse.html'">
+        <div class="cs-thumb-media" onclick="location.href='case-study1.html'">
         <img src="Assets/ComplyMac.png", alt="Comply IQ Case Study">
         </div>
         <div class="cs-thumb-info">
@@ -1305,7 +1279,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 
       <!-- Case Study 2 -->
       <article class="cs-thumb reverse" data-case="1">
-        <div class="cs-thumb-media" onclick="location.href='carp-case-study.html'">
+        <div class="cs-thumb-media" onclick="location.href='case-study2.html'">
            <img src="Assets/CarpMac.png", alt="Medical Coding Case Study">
 
         </div>
@@ -1319,7 +1293,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
 
       <!-- Case Study 3 -->
       <article class="cs-thumb" data-case="2">
-        <div class="cs-thumb-media" onclick="location.href='IRAS-case-study.html'">
+        <div class="cs-thumb-media" onclick="location.href='case-study3.html'">
           <img src="Assets/NTMac.png", alt="Disability Management Case Study">
         </div>
         <div class="cs-thumb-info">
@@ -1344,7 +1318,7 @@ document.getElementById('shuffler-scene').addEventListener('click', () => {
       </article>
 
       <!-- Case Study 5 -->
-      <article class="cs-thumb" data-case="4">
+      <article class="cs-thumb" data-case="4" onClick="location.href='case-study5.html'">
         <div class="cs-thumb-media">
            <img src="Assets/AAAIphone.png", alt="Mobile Strategy Case Study">
         </div>

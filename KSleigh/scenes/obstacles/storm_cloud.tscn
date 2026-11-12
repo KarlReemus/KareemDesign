@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cdv7ffy42y6xq"]
+
+[ext_resource type="Script" uid="uid://cow780pve6xks" path="res://scripts/scrolling_thing.gd" id="1_s"]
+[ext_resource type="Texture2D" uid="uid://bpn6swiwf67xf" path="res://assets/sprites/obstacles/storm_cloud.png" id="2_t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
+size = Vector2(150, 46)
+
+[node name="StormCloud" type="Area2D" unique_id=371770674 groups=["obstacle"]]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_s")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=882132334]
+texture = ExtResource("2_t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1971533508]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_hit")

@@ -17,7 +17,7 @@
     --navy:  #00317c;
     --warm:  #C8B89A;
     --accent:#149954;
-    --mid:   #888078;
+    --mid:   #2d251d;
     --light: #E8E3DC;
 
     --fs-h2:   clamp(2rem, 4vw, 3.5rem);
@@ -684,6 +684,26 @@
 </style>
 </head>
 <body>
+<!--password-->
+<script>
+  (function() {
+    const PASSWORD = "yourpassword"; // 👈 change this
+    const SESSION_KEY = "cs_auth";
+
+    if (sessionStorage.getItem(SESSION_KEY) !== "1") {
+      const input = prompt("Enter password to view this page:");
+      if (input !== KHCaseStudy) {
+        document.documentElement.innerHTML =
+          "<div style='font-family:sans-serif;text-align:center;padding:80px'>" +
+          "<h2>Access Denied</h2><p>Incorrect password.</p>" +
+          "<button onclick='location.reload()'>Try Again</button></div>";
+        return;
+      }
+      sessionStorage.setItem(SESSION_KEY, "1");
+    }
+  })();
+</script>
+
 
 <!-- ════════════════════════════════════════
      HEADER — same as portfolio7
@@ -725,10 +745,10 @@
   <a href="index.html#work" class="cs-page-back">
     <span class="arr">←</span> Back to Work
   </a>
-  <div class="cs-page-kicker">Workflow Automation Dashboard</div>
-  <h1 class="cs-page-title serif">Disability Claims Management Platform</h1>
+  <div class="cs-page-kicker">Enterprise Data Visualization Dashboard</div>
+  <h1 class="cs-page-title serif">Investment Risk & Analytics Platform</h1>
   <p class="cs-page-summary">
-   Transforming a complex claims management workflow into a streamlined process.
+Providing increased granularity and transparency for data-driven decision making.
 
   </p>
   <div class="cs-page-meta">
@@ -742,11 +762,11 @@
     </div> -->
     <div class="cs-meta-item">
       <div class="meta-label">Tools</div>
-      <div class="meta-value">Figma, Jira</div>
+      <div class="meta-value">Figma, Excel</div>
     </div>
     <div class="cs-meta-item">
       <div class="meta-label">Industry</div>
-      <div class="meta-value">Healthcare Consulting</div>
+      <div class="meta-value">Finance</div>
     </div>
   </div>
 </div>
@@ -757,7 +777,7 @@
     <!-- Replace with: <img src="your-hero-image.jpg" alt="Project hero"> -->
     <div class="video-container" >
     <video controls
-     src="Assets/sedgwickvid.mp4" alt="CopmlyIQ Interactive" type="mov" autoplay muted playsinline loop controls> 
+     src="Assets/NTVid.mp4" alt="CopmlyIQ Interactive" type="mov" autoplay muted playsinline loop controls> 
       </video>
   </div>
 
@@ -769,9 +789,9 @@
 <div class="cs-split">
   <div class="cs-split-text">
     <h3 class="serif">Understanding the Problem Space</h3>
-    <p>A leading disability claims management organization needed to modernize a fragmented, multi-system process that slowed every claim and exhausted every team member who touched it. </p>
-    <p>Specialists juggled disparate tools, ran redundant validations across platforms, and operated without a unified source of truth.</p>
-    <p> The complexity had a compounding cost: new claims managers averaged six months before reaching full productivity — an onboarding burden the organization could no longer sustain.</p>
+    <p>A major financial institution's investment risk and analytics clients were operating with a patchwork of reporting sources and manually constructed analytic tools. The data existed — but it wasn't working hard enough. </p>
+    <p>Reports lacked the granularity clients needed to understand the true performance of their portfolios, leaving them without the visibility required to make confident adjustments, stress-test scenarios, or forecast with precision. </p>
+    <p>The gap between the data clients had and the insight they actually needed was costing them decision-making speed and confidence.</p>
   </div>
   <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
     <span class="lightbox-hint">
@@ -780,7 +800,7 @@
     </span>
     <!-- Replace with: <img src="your-image.jpg" alt="Research insights"> -->
     <!-- <image src="/Users/kareemhindi/Desktop/KrmDsn/HBS/ComplyIQ/ProcessFlow.png" alt="Research Process Diagram"></image> -->
-  <image src="Assets/SedgwickResearch.jpg" alt="Process Flow Diagram"></image>
+  <image src="Assets/NTResearch.jpg" alt="Process Flow Diagram"></image>
   </div>
 </div>
 
@@ -788,20 +808,21 @@
 <div class="cs-split reverse-split" style="background:var(--light);">
   <div class="cs-split-text">
     <h3 class="serif">Designing the Solution</h3>
-        <p><h4>Stakeholder Deep Dives</h4></p>
-Claims auditors guided the team through detailed walkthroughs of every scenario in the management cycle, giving us ground-level fluency in process complexity before any design decisions were made.
+        <p><h4> Discovery & Stakeholder Interviews</h4></p>
+Conducted in-depth interviews with key business stakeholders and current clients to understand the essential needs of the system, map existing workflows, and identify exactly where reporting was falling short.
 
 <p><h4>Scenario Mapping </h4></p>
 Each scenario was mapped by role and system to surface bottlenecks, redundant steps, and opportunities where automation could meaningfully reduce manual effort.
 
 <p><h4>Requirementse & Feature Backlog</h4></p>
-Working alongside key stakeholders and business analysts, we documented and prioritized the full requirements set needed to support the platform's transformation goals.
+Hours of interview data were synthesized into a structured requirements and features backlog — defining essential functionality and establishing a clear foundation for design and development prioritization.
 
-<p><h4>Design System & Technical Documentation</h4></p>
-A comprehensive design system was built alongside the platform — covering component specs and technical documentation — to accelerate development and ensure consistency at scale.
+
+<p><h4>Iterative UI Design</h4></p>
+The platform UI was designed through iterative cycles, demonstrating core capabilities including fine-grained forecasting, asset reclassification, and data interrogation. Each round incorporated client and stakeholder feedback before advancing to the next phase.
 
 <p><h4>Sprint Planning & Delivery</h4></p>
-Through regular sprint planning and pointing sessions, we scoped the full development lifecycle to hit delivery targets, enabling claims specialists to test and provide feedback in a live environment early in the process.
+Designs were structured into two-week development sprints, enabling the engineering team to deploy incrementally while maintaining tight alignment between build progress and validated design intent.
 
   </div>
   <div class="cs-split-media" data-lb-caption="ComplyIQ Wireframes" onclick="lbOpen(this)">
@@ -810,25 +831,25 @@ Through regular sprint planning and pointing sessions, we scoped the full develo
       Expand
     </span>
     <!-- Replace with: <img src="your-image.jpg" alt="Design process"> -->
-   <image src="Assets/SedgwickWires.jpg" alt="ComplyIQ Wireframes"> </image>
+   <image src="Assets/NTMac.png" alt="IRAS Wireframes"> </image>
   </div>
 </div>
 
 <div class="cs-split">
   <div class="cs-split-text">
     <h3 class="serif">Outcome</h3>
-    <p>The platform reduced claim processing time from days to hours, unlocked millions in operational value, and drove a 3× increase in employee NPS.</p>
-    <p>Executives cited it as one of the most successful transformations in the company's history.</p>
-  <p><h4> → Hours</h4>  reduction in average charting time</p>
-<p><h4> 3x</h4> Increase in employee NPS post-launch.</p>
-<p><h4> Millions unlocked</h4> in operational value through automation and efficiency gains.</p>
+    <p>The platform became an immutable source of truth — replacing fragmented reporting with a unified, authoritative view of each client's portfolio. </p>
+    <p>Clients gained customizable, granular access to their holdings data, enabling confident forecasting and data-backed decision making. Stakeholders across the institution could now interrogate risk and performance at a depth that previously required significant bespoke analyst effort.</p>
+  <p><h4> One Platform</h4> replacing multiple disconnected reporting sources</p>
+<p><h4> Full Transparency</h4> Increase in employee NPS post-launch.</p>
+<p><h4> Millions unlocked</h4> into portfolio performance and risk exposure for all stakeholders</p>
   </div>
   <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
     <span class="lightbox-hint">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5H10.5V4.5M10.5 1.5L7 5M4.5 10.5H1.5V7.5M1.5 10.5L5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Expand
     </span>
-  <image src="Assets/SedgwickMac.png" alt="Process Flow Diagram"></image>
+  <image src="Assets/NTMac.png" alt="Process Flow Diagram"></image>
   </div>
 </div>
 
@@ -837,15 +858,15 @@ Through regular sprint planning and pointing sessions, we scoped the full develo
 <div class="cs-text-trio">
   <div class="cs-text-block">
     <h4>Problem</h4>
-    <p>Claims analysts juggled fragmented tools and redundant validations across multiple systems, with new hires taking an average of six months to reach full productivity.</p>
+    <p>Investment analytics clients were working across disconnected reporting tools that lacked the granularity needed to make confident portfolio decisions.</p>
   </div>
   <div class="cs-text-block">
     <h4>Solution</h4>
-    <p> Led a design pod through deep-dive research, scenario mapping, and iterative design to build a unified claims platform with a comprehensive design system and automated workflows.</p>
+    <p> Conducted discovery interviews and synthesized requirements into an iterative Figma-designed cloud platform delivering unified data access, forecasting, and asset reclassification capabilities.</p>
   </div>
   <div class="cs-text-block">
     <h4>Outcome</h4>
-    <p>The platform cut processing time from days to hours, drove a 3× increase in employee NPS, and was cited by executives as one of the most successful transformations in the company's history.</p>
+    <p>The platform became a single source of truth, giving clients granular, customizable access to their portfolio data and enabling data-backed decision making at scale.</p>
   </div>
 </div>
 
@@ -871,7 +892,7 @@ Through regular sprint planning and pointing sessions, we scoped the full develo
 <a href="#" class="cs-next">
   <div>
     <div class="cs-next-label">Next Case Study</div>
-    <div class="cs-next-title serif">Investment Risk & Analytics Platform</div>
+    <div class="cs-next-title serif">Mobile Experience Strategy & Redesign</div>
   </div>
   <span class="cs-next-arrow">→</span>
 </a>
@@ -879,7 +900,7 @@ Through regular sprint planning and pointing sessions, we scoped the full develo
 <!-- Footer -->
 <footer>
   <span>© 2026 Kareem Hindi</span>
-  <a href="index.html#work" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
+  <a href="case-study5.html" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
 </footer>
 
 

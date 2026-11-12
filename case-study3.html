@@ -684,6 +684,25 @@
 </style>
 </head>
 <body>
+<!--password-->
+<script>
+  (function() {
+    const PASSWORD = "yourpassword"; // 👈 change this
+    const SESSION_KEY = "cs_auth";
+
+    if (sessionStorage.getItem(SESSION_KEY) !== "1") {
+      const input = prompt("Enter password to view this page:");
+      if (input !== KHCaseStudy) {
+        document.documentElement.innerHTML =
+          "<div style='font-family:sans-serif;text-align:center;padding:80px'>" +
+          "<h2>Access Denied</h2><p>Incorrect password.</p>" +
+          "<button onclick='location.reload()'>Try Again</button></div>";
+        return;
+      }
+      sessionStorage.setItem(SESSION_KEY, "1");
+    }
+  })();
+</script>
 
 <!-- ════════════════════════════════════════
      HEADER — same as portfolio7
@@ -725,10 +744,10 @@
   <a href="index.html#work" class="cs-page-back">
     <span class="arr">←</span> Back to Work
   </a>
-  <div class="cs-page-kicker">Medical Coding Workflow</div>
-  <h1 class="cs-page-title serif">Coding and ACA Reporting Platform</h1>
+  <div class="cs-page-kicker">Workflow Automation Dashboard</div>
+  <h1 class="cs-page-title serif">Disability Claims Management Platform</h1>
   <p class="cs-page-summary">
-    An AI-assisted patient chart reader streamlining medical coders workflows.
+   Transforming a complex claims management workflow into a streamlined process.
 
   </p>
   <div class="cs-page-meta">
@@ -742,11 +761,11 @@
     </div> -->
     <div class="cs-meta-item">
       <div class="meta-label">Tools</div>
-      <div class="meta-value">Figma, OpenAI</div>
+      <div class="meta-value">Figma, Jira</div>
     </div>
     <div class="cs-meta-item">
       <div class="meta-label">Industry</div>
-      <div class="meta-value">Healthcare</div>
+      <div class="meta-value">Healthcare Consulting</div>
     </div>
   </div>
 </div>
@@ -757,7 +776,7 @@
     <!-- Replace with: <img src="your-hero-image.jpg" alt="Project hero"> -->
     <div class="video-container" >
     <video controls
-     src="Assets/HCSCVid.mp4" alt="CopmlyIQ Interactive" type="mov" autoplay muted playsinline loop controls> 
+     src="Assets/sedgwickvid.mp4" alt="CopmlyIQ Interactive" type="mov" autoplay muted playsinline loop controls> 
       </video>
   </div>
 
@@ -769,9 +788,9 @@
 <div class="cs-split">
   <div class="cs-split-text">
     <h3 class="serif">Understanding the Problem Space</h3>
-    <p>A leading healthcare provider's medical coding team was caught between outdated, siloed tools and a fragmented document landscape.</p>
-    <p>Coders navigated multiple systems just to complete routine tasks — each step requiring manual handoffs, redundant validations, and time-consuming document retrieval from scattered locations.</p>
-    <p> The result: unnecessary cognitive load on skilled staff and a slow, error-prone charting process.</p>
+    <p>A leading disability claims management organization needed to modernize a fragmented, multi-system process that slowed every claim and exhausted every team member who touched it. </p>
+    <p>Specialists juggled disparate tools, ran redundant validations across platforms, and operated without a unified source of truth.</p>
+    <p> The complexity had a compounding cost: new claims managers averaged six months before reaching full productivity — an onboarding burden the organization could no longer sustain.</p>
   </div>
   <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
     <span class="lightbox-hint">
@@ -780,7 +799,7 @@
     </span>
     <!-- Replace with: <img src="your-image.jpg" alt="Research insights"> -->
     <!-- <image src="/Users/kareemhindi/Desktop/KrmDsn/HBS/ComplyIQ/ProcessFlow.png" alt="Research Process Diagram"></image> -->
-  <image src="Assets/CARPResearch.jpg" alt="Process Flow Diagram"></image>
+  <image src="Assets/SedgwickResearch.jpg" alt="Process Flow Diagram"></image>
   </div>
 </div>
 
@@ -788,17 +807,20 @@
 <div class="cs-split reverse-split" style="background:var(--light);">
   <div class="cs-split-text">
     <h3 class="serif">Designing the Solution</h3>
-        <p><h4>Discovery & stakeholder interviews</h4></p>
-Conducted in-depth interviews with business stakeholders, medical coders, and technology architects. Had coders walk me through their process end-to-end to surface real pain points beyond what stakeholders assumed.
-<p><h4>Current & Future State Blueprinting </h4></p>
-Synthesized research into a current-state service blueprint mapping the full technology stack and user flows across the coding process — then defined the future state to align teams around a shared vision.
-<p><h4>Requirementse & Feature Prioritization</h4></p>
-Built an extensive backlog of features and requirements, then facilitated prioritization sessions to sequence design and development work against business impact.
+        <p><h4>Stakeholder Deep Dives</h4></p>
+Claims auditors guided the team through detailed walkthroughs of every scenario in the management cycle, giving us ground-level fluency in process complexity before any design decisions were made.
 
-<p><h4>Iterative Figma in Design</h4></p>
-Designed complete end-to-end workflows in Figma, iterating through multiple rounds of feedback with stakeholders and coders. Demonstrated full functionality and edge cases to validate solutions before development.
-<p><h4>Developer Handoff & Build Support</h4></p>
-Partnered with engineering to translate the feature backlog into a structured sprint timeline — including effort estimates and delivery prioritization — to enable a smooth, confident build.
+<p><h4>Scenario Mapping </h4></p>
+Each scenario was mapped by role and system to surface bottlenecks, redundant steps, and opportunities where automation could meaningfully reduce manual effort.
+
+<p><h4>Requirementse & Feature Backlog</h4></p>
+Working alongside key stakeholders and business analysts, we documented and prioritized the full requirements set needed to support the platform's transformation goals.
+
+<p><h4>Design System & Technical Documentation</h4></p>
+A comprehensive design system was built alongside the platform — covering component specs and technical documentation — to accelerate development and ensure consistency at scale.
+
+<p><h4>Sprint Planning & Delivery</h4></p>
+Through regular sprint planning and pointing sessions, we scoped the full development lifecycle to hit delivery targets, enabling claims specialists to test and provide feedback in a live environment early in the process.
 
   </div>
   <div class="cs-split-media" data-lb-caption="ComplyIQ Wireframes" onclick="lbOpen(this)">
@@ -807,24 +829,25 @@ Partnered with engineering to translate the feature backlog into a structured sp
       Expand
     </span>
     <!-- Replace with: <img src="your-image.jpg" alt="Design process"> -->
-   <image src="Assets/CarpWires.jpg" alt="ComplyIQ Wireframes"> </image>
+   <image src="Assets/SedgwickWires.jpg" alt="ComplyIQ Wireframes"> </image>
   </div>
 </div>
 
 <div class="cs-split">
   <div class="cs-split-text">
     <h3 class="serif">Outcome</h3>
-    <p>Consolidating disparate tools into a single web-based application reduced charting time and eliminated friction across the workflow. </p>
-    <p>Backend automation removed the manual burden of locating and distributing charts, giving coders more time for the high-value work only they can do.</p>
-  <p>Days → Hours  reduction in average charting time</p>
-<p>One platform → replacing multiple disconnected systems</p>
+    <p>The platform reduced claim processing time from days to hours, unlocked millions in operational value, and drove a 3× increase in employee NPS.</p>
+    <p>Executives cited it as one of the most successful transformations in the company's history.</p>
+  <p><h4> → Hours</h4>  reduction in average charting time</p>
+<p><h4> 3x</h4> Increase in employee NPS post-launch.</p>
+<p><h4> Millions unlocked</h4> in operational value through automation and efficiency gains.</p>
   </div>
   <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
     <span class="lightbox-hint">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5H10.5V4.5M10.5 1.5L7 5M4.5 10.5H1.5V7.5M1.5 10.5L5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Expand
     </span>
-  <image src="Assets/CarpMac.png" alt="Process Flow Diagram"></image>
+  <image src="Assets/SedgwickMac.png" alt="Process Flow Diagram"></image>
   </div>
 </div>
 
@@ -833,15 +856,15 @@ Partnered with engineering to translate the feature backlog into a structured sp
 <div class="cs-text-trio">
   <div class="cs-text-block">
     <h4>Problem</h4>
-    <p>Medical coders were navigating multiple outdated, siloed systems to complete routine tasks, creating manual bottlenecks and slowing the charting process.</p>
+    <p>Claims analysts juggled fragmented tools and redundant validations across multiple systems, with new hires taking an average of six months to reach full productivity.</p>
   </div>
   <div class="cs-text-block">
     <h4>Solution</h4>
-    <p> Led end-to-end UX from stakeholder research and service blueprinting through iterative Figma design and developer sprint planning to consolidate the workflow into a single web-based application.</p>
+    <p> Led a design pod through deep-dive research, scenario mapping, and iterative design to build a unified claims platform with a comprehensive design system and automated workflows.</p>
   </div>
   <div class="cs-text-block">
     <h4>Outcome</h4>
-    <p> Consolidating the platform eliminated manual distribution effort and reduced charting time, freeing coders to focus on higher-value work.</p>
+    <p>The platform cut processing time from days to hours, drove a 3× increase in employee NPS, and was cited by executives as one of the most successful transformations in the company's history.</p>
   </div>
 </div>
 
@@ -867,7 +890,7 @@ Partnered with engineering to translate the feature backlog into a structured sp
 <a href="#" class="cs-next">
   <div>
     <div class="cs-next-label">Next Case Study</div>
-    <div class="cs-next-title serif">Disability Claims Management Platform</div>
+    <div class="cs-next-title serif">Investment Risk & Analytics Platform</div>
   </div>
   <span class="cs-next-arrow">→</span>
 </a>
@@ -875,7 +898,7 @@ Partnered with engineering to translate the feature backlog into a structured sp
 <!-- Footer -->
 <footer>
   <span>© 2026 Kareem Hindi</span>
-  <a href="index.html#work" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
+  <a href="case-study4.html" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
 </footer>
 
 

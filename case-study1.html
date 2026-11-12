@@ -684,6 +684,26 @@
 </style>
 </head>
 <body>
+<!--password-->
+<script>
+  (function() {
+    const PASSWORD = "yourpassword"; // 👈 change this
+    const SESSION_KEY = "cs_auth";
+
+    if (sessionStorage.getItem(SESSION_KEY) !== "1") {
+      const input = prompt("Enter password to view this page:");
+      if (input !== KHCaseStudy) {
+        document.documentElement.innerHTML =
+          "<div style='font-family:sans-serif;text-align:center;padding:80px'>" +
+          "<h2>Access Denied</h2><p>Incorrect password.</p>" +
+          "<button onclick='location.reload()'>Try Again</button></div>";
+        return;
+      }
+      sessionStorage.setItem(SESSION_KEY, "1");
+    }
+  })();
+</script>
+
 
 <!-- ════════════════════════════════════════
      HEADER — same as portfolio7
@@ -725,10 +745,10 @@
   <a href="index.html#work" class="cs-page-back">
     <span class="arr">←</span> Back to Work
   </a>
-  <div class="cs-page-kicker">Strategy Workshop and Mobile Redesign</div>
-  <h1 class="cs-page-title serif">Mobile Experience UX Strategy and Redesign</h1>
+  <div class="cs-page-kicker">AI Powered Dashboard</div>
+  <h1 class="cs-page-title serif">AI-Powered Compliance Reporting</h1>
   <p class="cs-page-summary">
-Aligning strategies to increase member adoption 10x.
+    An AI-assisted report generator that transformed how hospital auditors capture, reference, and document compliance findings.
 
   </p>
   <div class="cs-page-meta">
@@ -742,11 +762,11 @@ Aligning strategies to increase member adoption 10x.
     </div> -->
     <div class="cs-meta-item">
       <div class="meta-label">Tools</div>
-      <div class="meta-value">Figma, In Person Workshops</div>
+      <div class="meta-value">Figma, Replit</div>
     </div>
     <div class="cs-meta-item">
       <div class="meta-label">Industry</div>
-      <div class="meta-value">Automotive</div>
+      <div class="meta-value">Healthcare</div>
     </div>
   </div>
 </div>
@@ -757,7 +777,7 @@ Aligning strategies to increase member adoption 10x.
     <!-- Replace with: <img src="your-hero-image.jpg" alt="Project hero"> -->
     <div class="video-container" >
     <video controls
-     src="Assets/AAAVid.mp4" alt="CopmlyIQ Interactive" type="mov" autoplay muted playsinline loop controls> 
+     src="Assets/ComplyIQ-Motion.mp4" alt="Interactiveprototype" type="mov" autoplay muted playsinline loop controls> 
       </video>
   </div>
 
@@ -769,9 +789,8 @@ Aligning strategies to increase member adoption 10x.
 <div class="cs-split">
   <div class="cs-split-text">
     <h3 class="serif">Understanding the Problem Space</h3>
-    <p>The businesses mobile app had an engagement problem. With only 40,000 active users across their member base, the app was functionally invisible to the vast majority of people it was built for. Members downloaded it, used it once in a roadside emergency, and moved on. </p>
-    <p>A catalog of valuable offers and member benefits sat untouched — not because members didn't want them, but because the app gave them no reason to return. </p>
-    <p>They needed more than a redesign. They needed a new engagement strategy built around why members would actually come back.</p>
+    <p>A large healthcare consultancy relied on fragmented, outdated systems to produce compliance reports for hospital clients. </p>
+    <p>During on-site audits, contractors juggled multiple disconnected tools — manually capturing notes, photographing findings, and cross-referencing standards — then attempted to stitch everything into a single polished document. With multiple consultants contributing to each report, inconsistencies in tone, formatting, and depth were common. Supervisors bore the burden of reconciling those differences before anything could be delivered, adding hours of rework to every engagement.</p>
   </div>
   <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
     <span class="lightbox-hint">
@@ -780,7 +799,7 @@ Aligning strategies to increase member adoption 10x.
     </span>
     <!-- Replace with: <img src="your-image.jpg" alt="Research insights"> -->
     <!-- <image src="/Users/kareemhindi/Desktop/KrmDsn/HBS/ComplyIQ/ProcessFlow.png" alt="Research Process Diagram"></image> -->
-  <image src="Assets/AAAResearch.jpg" alt="Experience Blueprint and Workshop"></image>
+  <image src="Assets/ComplyIQ-process.jpg" alt="Process Flow Diagram"></image>
   </div>
 </div>
 
@@ -788,18 +807,18 @@ Aligning strategies to increase member adoption 10x.
 <div class="cs-split reverse-split" style="background:var(--light);">
   <div class="cs-split-text">
     <h3 class="serif">Designing the Solution</h3>
-        <p><h4> Discovery & Current State Assessment</h4></p>
-Stakeholder interviews, current usage analysis, and market research were combined to map business objectives against real user sentiment — surfacing the friction points and missed moments that were driving disengagement.
-
-<p><h4>Member Experience Blueprint </h4></p>
-Research outputs were synthesized into a current-state Member Experience Blueprint, visualizing the full member journey, identifying gaps, and establishing a shared picture of where the future experience needed to go.
-
-<p><h4>In-Person Innovation Workshop</h4></p>
-I facilitated a hands-on executive workshop using collaborative activities and strategic presentations to align C-suite leadership around shared business drivers and a prioritized vision for the reimagined mobile experience.
-
-<p><h4>Proof-of-Concept Prortotype</h4></p>
-Key insights from research and workshop sessions were translated into an interactive prototype presented directly to C-suite executives — making the strategic direction concrete and actionable.
-
+        <p><h4>Discovery & stakeholder interviews</h4></p>
+Conducted multiple rounds of interviews and process walkthroughs with consultants, supervisors, and subject matter experts to understand the full audit and reporting lifecycle.
+<p><h4>Current & Future State Process Mapping </h4></p>
+Synthesized research into current-state process maps that exposed friction points, then developed future-state maps to align stakeholders around a shared vision before design began.
+<p><h4>Persona Development</h4></p>
+Built personas representing the primary user types — field consultants and report supervisors — grounding design decisions in real needs and workflows.
+<p><h4>Requirements & Feature Prioritization</h4></p>
+Translated research outputs into business and design requirements, then worked with stakeholders to prioritize features for an achievable MVP.
+<p><h4>Iterative Design in Figma</h4></p>
+Designed key workflows and component documentation across multiple iterations, gathering continuous feedback from stakeholders and SMEs to validate and refine the experience.
+<p><h4>Developer Handoff & Build Support</h4></p>
+Documented components and flows for a development team building the application in Replit, supporting the implementation through to a testable MVP. </p>
 
   </div>
   <div class="cs-split-media" data-lb-caption="ComplyIQ Wireframes" onclick="lbOpen(this)">
@@ -808,26 +827,23 @@ Key insights from research and workshop sessions were translated into an interac
       Expand
     </span>
     <!-- Replace with: <img src="your-image.jpg" alt="Design process"> -->
-   <image src="Assets/AAAWires.jpg" alt="Mobile Prototype"> </image>
+   <image src="Assets/ComplyWires.png" alt="ComplyIQ Wireframes"> </image>
   </div>
 </div>
 
 <div class="cs-split">
   <div class="cs-split-text">
     <h3 class="serif">Outcome</h3>
-    <p>Discovery and the innovation workshop converged on a clear strategic direction: shift the app from a reactive emergency utility to a proactively personalized companion.</p>
-    <p>Starting from a base of 40,000 active users, the redeveloped engagement strategy centered on contextually aware experiences — surfacing relevant offers and member benefits at the right moment for each individual — with a stated goal of growing the active user base tenfold. </p>
- <p>The project concluded prior to the pandemic, which reshaped the mobile landscape before the strategy could be fully measured in market.</p>
-    <p><h4> 40,000 400,000</h4> target active user growth (10x)</p>
-<p><h4> Personalization First</h4> new engagement strategy centered on contextual awareness</p>
-
+    <p>An AI-assisted dashboard that streamlines the entire audit reporting workflow. Consultants upload rough field notes and images directly into the platform, which automatically identifies relevant standards and policies, structures findings, and formats recommendations in a consistent professional tone — with the AI handling what previously required hours of manual effort.</p>
+    <p>The dashboard eliminated hours of manual rewriting, referencing, and formatting per report. Consultants now generate complete, polished reports in a fraction of the previous time. Supervisors were freed from the bottleneck of reconciling inconsistent submissions, and the consultancy significantly reduced cost and time across client engagements.</p>
+</p>
   </div>
   <div class="cs-split-media" data-lb-caption="Process Flow Diagram" onclick="lbOpen(this)">
     <span class="lightbox-hint">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 1.5H10.5V4.5M10.5 1.5L7 5M4.5 10.5H1.5V7.5M1.5 10.5L5 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Expand
     </span>
-  <image src="AAA/Iphone.png" alt="Process Flow Diagram"></image>
+  <image src="Assets/ComplyMac.png" alt="Process Flow Diagram"></image>
   </div>
 </div>
 
@@ -836,15 +852,15 @@ Key insights from research and workshop sessions were translated into an interac
 <div class="cs-text-trio">
   <div class="cs-text-block">
     <h4>Problem</h4>
-    <p>With only 40,000 active users, AAA's mobile app was being used almost exclusively for roadside emergencies, leaving the majority of member benefits undiscovered and engagement critically low.</p>
+    <p>A large healthcare consultancy relied on outdated technology to create necessary reports for their clients.</p>
   </div>
   <div class="cs-text-block">
     <h4>Solution</h4>
-    <p> Facilitated stakeholder interviews, experience blueprinting, and a C-suite innovation workshop culminating in an interactive proof-of-concept prototype defining a new personalization-first engagement strategy.</p>
+    <p>An AI assisted report generator automated cumbersome workflows and provided consistency in formatting and tone.</p>
   </div>
   <div class="cs-text-block">
     <h4>Outcome</h4>
-    <p>The engagement strategy reoriented the app around contextually aware, personalized experiences with a target of growing the active user base tenfold — from 40,000 to 400,000.</p>
+    <p>The dashboard reduced the time to create reports to a fraction of the time saving the organization thousands client costs.</p>
   </div>
 </div>
 
@@ -870,7 +886,7 @@ Key insights from research and workshop sessions were translated into an interac
 <a href="#" class="cs-next">
   <div>
     <div class="cs-next-label">Next Case Study</div>
-    <div class="cs-next-title serif">Comply IQ</div>
+    <div class="cs-next-title serif">Coding and ACA Reporting Platform</div>
   </div>
   <span class="cs-next-arrow">→</span>
 </a>
@@ -878,7 +894,7 @@ Key insights from research and workshop sessions were translated into an interac
 <!-- Footer -->
 <footer>
   <span>© 2026 Kareem Hindi</span>
-  <a href="index.html#work" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
+  <a href="case-study2.html" style="color:var(--mid);text-decoration:none;font-size:.78rem;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--mid)'">← Back to Work</a>
 </footer>
 
 
@@ -896,7 +912,7 @@ const IMAGES = [
   "logos/kbook.jpg","logos/kdidas.jpg","logos/kfc.png","logos/KMC.jpg",
   "logos/Krklnd.png","logos/kss.png","logos/ldzpln.png","logos/mcks.jpg",
   "logos/mones.jpg","logos/mtlc.png","logos/nintendo.png","logos/nk.png",
-  "logos/onlyfns.png","logos/pzzht.png","logos/rbk.png","logos/rnch.png",
+  "logos/pzzht.png","logos/rbk.png","logos/rnch.png",
   "logos/sbwy.png","logos/sega.png","logos/Sprme.png","logos/strbkcs.png",
   "logos/tbll.png"
 ];

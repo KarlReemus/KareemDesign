@@ -1,0 +1,57 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/touch_controls.gd" id="1_tc"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/btn_up_normal.png" id="up_n"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/btn_up_pressed.png" id="up_p"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/btn_down_normal.png" id="down_n"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/btn_down_pressed.png" id="down_p"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/btn_drop_normal.png" id="drop_n"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui/btn_drop_pressed.png" id="drop_p"]
+
+[node name="TouchControls" type="CanvasLayer"]
+layer = 5
+script = ExtResource("1_tc")
+
+[node name="Left" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_right = 380.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Right" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -200.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Up" type="TouchScreenButton" parent="Left"]
+position = Vector2(20, 20)
+texture_normal = ExtResource("up_n")
+texture_pressed = ExtResource("up_p")
+passby_press = true
+action = "move_up"
+
+[node name="Down" type="TouchScreenButton" parent="Left"]
+position = Vector2(190, 20)
+texture_normal = ExtResource("down_n")
+texture_pressed = ExtResource("down_p")
+passby_press = true
+action = "move_down"
+
+[node name="Drop" type="TouchScreenButton" parent="Right"]
+position = Vector2(20, 20)
+texture_normal = ExtResource("drop_n")
+texture_pressed = ExtResource("drop_p")
+passby_press = true
+action = "drop_present"

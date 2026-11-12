@@ -1,0 +1,27 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/segment.gd" id="1_seg"]
+[ext_resource type="Texture2D" path="res://assets/sprites/train/santa_sleigh.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(150, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_santa"]
+size = Vector2(56, 56)
+
+[node name="Sleigh" type="Area2D"]
+collision_layer = 1
+collision_mask = 2
+script = ExtResource("1_seg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 30)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="CollisionSanta" type="CollisionShape2D" parent="."]
+position = Vector2(10, -28)
+shape = SubResource("RectangleShape2D_santa")

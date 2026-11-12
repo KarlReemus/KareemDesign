@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/train/train.gd" id="1_train"]
+[ext_resource type="PackedScene" path="res://scenes/train/reindeer.tscn" id="2_reindeer"]
+[ext_resource type="PackedScene" path="res://scenes/train/sleigh.tscn" id="3_sleigh"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/present.tscn" id="4_present"]
+
+[node name="Train" type="Node2D"]
+script = ExtResource("1_train")
+present_scene = ExtResource("4_present")
+
+[node name="Reindeer1" parent="." instance=ExtResource("2_reindeer")]
+position = Vector2(720, 300)
+
+[node name="Reindeer2" parent="." instance=ExtResource("2_reindeer")]
+position = Vector2(595, 300)
+
+[node name="Reindeer3" parent="." instance=ExtResource("2_reindeer")]
+position = Vector2(470, 300)
+
+[node name="Sleigh" parent="." instance=ExtResource("3_sleigh")]
+position = Vector2(290, 300)

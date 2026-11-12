@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://81knlgcephj2"]
+
+[ext_resource type="Script" uid="uid://cy1l8o7r3fu2c" path="res://scenes/main/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://1rk2pakmxklu" path="res://scenes/main/spawner.gd" id="2_sp"]
+[ext_resource type="Script" uid="uid://bjo2a4bw1p4s" path="res://scenes/main/house_spawner.gd" id="3_hs"]
+[ext_resource type="PackedScene" path="res://scenes/world/background.tscn" id="4_bg"]
+[ext_resource type="PackedScene" path="res://scenes/train/train.tscn" id="5_train"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/touch_controls.tscn" id="7_tc"]
+[ext_resource type="PackedScene" path="res://scenes/ui/screens.tscn" id="8_sc"]
+[ext_resource type="PackedScene" path="res://scenes/obstacles/bird.tscn" id="9_bird"]
+[ext_resource type="PackedScene" path="res://scenes/obstacles/storm_cloud.tscn" id="10_cloud"]
+[ext_resource type="PackedScene" path="res://scenes/pickups/present_pickup.tscn" id="11_pp"]
+[ext_resource type="PackedScene" path="res://scenes/world/house.tscn" id="12_house"]
+
+[node name="Main" type="Node2D" unique_id=629255880]
+script = ExtResource("1_main")
+
+[node name="Background" parent="." unique_id=2139741653 instance=ExtResource("4_bg")]
+
+[node name="HouseSpawner" type="Node2D" parent="." unique_id=785789327]
+script = ExtResource("3_hs")
+houses = Array[PackedScene]([ExtResource("12_house")])
+
+[node name="Spawner" type="Node2D" parent="." unique_id=950852567]
+script = ExtResource("2_sp")
+obstacles = Array[PackedScene]([ExtResource("9_bird"), ExtResource("10_cloud")])
+pickups = Array[PackedScene]([ExtResource("11_pp")])
+
+[node name="Train" parent="." unique_id=589064284 instance=ExtResource("5_train")]
+
+[node name="Hud" parent="." unique_id=2040075958 instance=ExtResource("6_hud")]
+
+[node name="TouchControls" parent="." unique_id=2105875550 instance=ExtResource("7_tc")]
+
+[node name="Screens" parent="." unique_id=1590521554 instance=ExtResource("8_sc")]

@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://cjjurlofnp0sk"]
+
+[ext_resource type="Script" uid="uid://cmwtbdvvxf5o" path="res://scenes/ui/screens.gd" id="1_sc"]
+[ext_resource type="FontFile" uid="uid://csq6toi4ad0v4" path="res://assets/fonts/Arial Rounded Bold.ttf" id="2_11m2n"]
+[ext_resource type="Texture2D" uid="uid://diwxwdov4baue" path="res://assets/sprites/train/santa_sleigh.png" id="2_art"]
+[ext_resource type="FontFile" uid="uid://dsgkh1wiffrur" path="res://scenes/ui/Arial Rounded Bold.ttf" id="4_holun"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2iuuw"]
+
+[node name="Screens" type="CanvasLayer" unique_id=1863737672]
+layer = 10
+script = ExtResource("1_sc")
+
+[node name="Title" type="Control" parent="." unique_id=155270933]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="Title" unique_id=1760039489]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.04, 0.06, 0.18, 0.62)
+
+[node name="Box" type="VBoxContainer" parent="Title" unique_id=1312825388]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -260.0
+offset_right = 280.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Heading" type="Label" parent="Title/Box" unique_id=1664189030]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9328457, 0.23475453, 0.15919209, 1)
+theme_override_colors/font_shadow_color = Color(0.0140472, 0.8097063, 3.85046e-07, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.2, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("2_11m2n")
+theme_override_font_sizes/font_size = 76
+text = "Santa Kareem's Sleigh Ride!"
+horizontal_alignment = 1
+
+[node name="Art" type="TextureRect" parent="Title/Box" unique_id=2141900816]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+texture = ExtResource("2_art")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Hint" type="Label" parent="Title/Box" unique_id=211087830]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.2, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("4_holun")
+theme_override_font_sizes/font_size = 32
+text = "Collect presents. Drop them down chimneys.
+Ride Santa Kareem Ride! "
+horizontal_alignment = 1
+
+[node name="PlayButton" type="Button" parent="Title/Box" unique_id=1730070287]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8745098, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0.8745098, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.8745098, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.8745098, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.8745098, 0, 1)
+theme_override_fonts/font = ExtResource("2_11m2n")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_2iuuw")
+text = "RIDE ON!"
+
+[node name="GameOver" type="Control" parent="." unique_id=1358553118]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="GameOver" unique_id=1949829420]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.04, 0.06, 0.18, 0.62)
+
+[node name="Box" type="VBoxContainer" parent="GameOver" unique_id=1540538487]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -260.0
+offset_right = 280.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="OverHeading" type="Label" parent="GameOver/Box" unique_id=1728617003]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.2, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("4_holun")
+theme_override_font_sizes/font_size = 72
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="FinalScore" type="Label" parent="GameOver/Box" unique_id=1821774262]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.7647059, 0, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.2, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 44
+text = "Score 0"
+horizontal_alignment = 1
+
+[node name="RetryButton" type="Button" parent="GameOver/Box" unique_id=50571365]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745098, 0.65882355, 0, 1)
+theme_override_fonts/font = ExtResource("4_holun")
+theme_override_font_sizes/font_size = 40
+text = "PLAY AGAIN"
