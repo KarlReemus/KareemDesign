@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ht4r48cifa4u"
+path="res://.godot/imported/Save Kareem'smas.wav-2f355ef3411bee949f8161b30c92f193.sample"
+
+[deps]
+
+source_file="res://assets/audio/music/Save Kareem'smas.wav"
+dest_files=["res://.godot/imported/Save Kareem'smas.wav-2f355ef3411bee949f8161b30c92f193.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
