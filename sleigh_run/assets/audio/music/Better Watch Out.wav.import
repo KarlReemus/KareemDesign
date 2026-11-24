@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://iafus53c65or"
+path="res://.godot/imported/Better Watch Out.wav-8b6bb4c15cc351f953b39b21b5d70c9d.sample"
+
+[deps]
+
+source_file="res://assets/audio/music/Better Watch Out.wav"
+dest_files=["res://.godot/imported/Better Watch Out.wav-8b6bb4c15cc351f953b39b21b5d70c9d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
